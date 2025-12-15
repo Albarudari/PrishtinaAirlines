@@ -212,7 +212,109 @@ input {
 }
 
 .hero-btn:hover {
-  background-color: #0a1d3b
+  background-color: #0a1d3b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.top-offers {
+  padding: 60px 80px;
+  background-color: #f5f7fa;
+}
+
+.top-offers h2 {
+  font-size: 28px;
+  color: #0a1d3b;
+  margin-bottom: 30px;
+}
+
+.offers-wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.offer-card {
+  background: #ffffff;
+  width: 320px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.offer-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+
+.offer-card h3 {
+  font-size: 18px;
+  color: #0a1d3b;
+  margin: 18px 20px 10px;
+}
+
+.offer-card p {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.6;
+  margin: 0 20px 18px;
+}
+
+.offer-card button {
+  margin: 0 20px 25px;
+  padding: 10px 18px;
+  background-color: #0a1d3b;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.offer-card button:hover {
+  background-color: #12305c;
+}
+
+.offer-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background-color: #e63946;
+  color: #ffffff;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+}
+.offer-card img {
+  filter: brightness(0.85);
+}
+
+@media (max-width: 900px) {
+  .offers-wrapper {
+    flex-direction: column;
+  }
+
+  .offer-card {
+    width: 100%;
+  }
+
+  .top-offers {
+    padding: 40px 20px;
+  }
 }
 
 .container {
@@ -253,11 +355,12 @@ input {
   width: 300px;
   border-radius: 15px;
   overflow: hidden;
+  height: 400px;
 }
 
 .card img {
-  width: 100%;
-  height: 160px;
+  width: 1;
+  height: 250px;
   object-fit: cover;
 }
 
