@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>London Hotels</title>
+    <link rel="stylesheet" href="hotels.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+    <header class="navbar" role="banner">
+        <div class="nav-left">
+            <span class="logo">✈</span>
+            <span class="site-title">Prishtina Airlines</span>
+        </div>
+        <nav class="nav-right" aria-label="Main navigation">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">About Us</a>
+            <a href="#" class="nav-link">Products</a>
+            <a href="#" class="nav-link">News</a>
+            <a href="#" class="nav-link">Terms</a>
+            <button class="cta">Sign In</button>
+        </nav>
+    </header>
+
+    
+    <section class="hero">
+        <div class="search-container hero-search">
+            <div class="search-options">
+                <label><input type="radio" name="trip" checked> Round Trip</label>
+                <label><input type="radio" name="trip"> One Way</label>
+            </div>
+            <div class="search-form">
+                <div class="form-group">
+                    <label>From</label>
+                    <input type="text" placeholder="Prishtina">
+                </div>
+                <div class="form-group">
+                    <label>To</label>
+                    <input type="text" placeholder="London">
+                </div>
+                <div class="form-group">
+                    <label>Depart</label>
+                    <input type="date" placeholder="mm/dd/yyyy">
+                </div>
+                <div class="form-group">
+                    <label>Return</label>
+                    <input type="date" placeholder="mm/dd/yyyy">
+                </div>
+                <button class="search-btn">Search ✈</button>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <main class="container" id="hotels" role="main">
+
+        
+        <section class="property-types">
+            <h2 class="title">Browse by property type</h2>
+            <div class="property-grid">
+                <div class="property-card">
+                    <img src="images/hotels.jpg" alt="Hotels">
+                    <h3>Hotels</h3>
+                </div>
+                <div class="property-card">
+                    <img src="images/apartments.jpg" alt="Apartments">
+                    <h3>Apartments</h3>
+                </div>
+                <div class="property-card">
+                    <img src="images/resorts.jpg" alt="Resorts">
+                    <h3>Resorts</h3>
+                </div>
+                <div class="property-card">
+                    <img src="images/villas.jpg" alt="Villas">
+                    <h3>Villas</h3>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="title">Top 5 Trending Hotels in Central London</h2>
+
+        
+        <section class="carousel" aria-label="Trending hotels carousel">
+            <div class="carousel-track">
+                
+                <article class="hotel-card">
+                    <div class="image-box">
+                        <img alt="Rest Up London – Hostel" src="images/hotel1.jpg">
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Rest Up London – Hostel</h3>
+
+                        <div class="rating">
+                            <span class="stars">★★★☆☆</span>
+                            <span class="reviews">Very Good · 8.4</span>
+                        </div>
+
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> 2.9 km from City Centre</p>
+
+                        <div class="tags">
+                            <span>Free WiFi</span>
+                            <span>Prime Discount</span>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <span class="old-price">€436.17</span>
+                        <span class="new-price">€342.04</span>
+                        <button>Select</button>
+                    </div>
+                </article>
+
+                
+                <article class="hotel-card">
+                    <div class="image-box">
+                        <img alt="Central London Urban Hotel" src="images/hotel2.jpg">
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Central London Urban Hotel</h3>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="reviews">Excellent · 9.1</span>
+                        </div>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> 1.2 km from City Centre</p>
+                        <div class="tags">
+                            <span>Free Breakfast</span>
+                            <span>City View</span>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <span class="old-price">€289.00</span>
+                        <span class="new-price">€219.00</span>
+                        <button>Select</button>
+                    </div>
+                </article>
+
+                
+                <article class="hotel-card">
+                    <div class="image-box">
+                        <img alt="Oxford Street Luxury Rooms" src="images/hotel3.jpg">
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Oxford Street Luxury Rooms</h3>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="reviews">Fantastic · 9.0</span>
+                        </div>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> 300m from Oxford Street</p>
+                        <div class="tags">
+                            <span>Shopping Area</span>
+                            <span>Free WiFi</span>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <span class="old-price">€350.00</span>
+                        <span class="new-price">€279.00</span>
+                        <button>Select</button>
+                    </div>
+                </article>
+
+                
+                <article class="hotel-card">
+                    <div class="image-box">
+                        <img alt="Kensington Palace Hotel" src="images/hotel4.jpg">
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Kensington Palace Hotel</h3>
+                        <div class="rating">
+                            <span class="stars">★★★★★</span>
+                            <span class="reviews">Exceptional · 9.5</span>
+                        </div>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> 5 min from Hyde Park</p>
+                        <div class="tags">
+                            <span>Premium</span>
+                            <span>Spa & Wellness</span>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <span class="old-price">€410.00</span>
+                        <span class="new-price">€329.00</span>
+                        <button>Select</button>
+                    </div>
+                </article>
+
+                
+                <article class="hotel-card">
+                    <div class="image-box">
+                        <img alt="Soho Boutique Hotel" src="images/hotel5.jpg">
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Soho Boutique Hotel</h3>
+                        <div class="rating">
+                            <span class="stars">★★★★☆</span>
+                            <span class="reviews">Excellent · 8.9</span>
+                        </div>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> Located in the heart of Soho</p>
+                        <div class="tags">
+                            <span>Nightlife</span>
+                            <span>Modern Design</span>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <span class="old-price">€299.00</span>
+                        <span class="new-price">€239.00</span>
+                        <button>Select</button>
+                    </div>
+                </article>
+            </div>
+
+            
+            <button class="carousel-arrow prev" aria-label="Previous">&lsaquo;</button>
+            <button class="carousel-arrow next" aria-label="Next">&rsaquo;</button>
+
+            
+            <div class="carousel-dots" aria-hidden="true">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </section>
+
+        
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon">%</div>
+                <h4>Great hotel deals</h4>
+                <p>We search our partners to find the best deal for you.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🪄</div>
+                <h4>Up-to-date pricing</h4>
+                <p>Real-time pricing so you know what you'll pay.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚖️</div>
+                <h4>Precise searching</h4>
+                <p>Filters for reviews, location and cancellation policy.</p>
+            </div>
+        </section>
+
+        
+        <section id="about" class="about">
+            <h3>About us</h3>
+            <p>We are an extension of the airline site; hotel bookings and offers tailored to our passengers.</p>
+        </section>
+
+    </main>
+
+    <script>
+        
+        (function() {
+            const nav = document.querySelector('.navbar');
+            const navHeight = nav.offsetHeight;
+            
+            document.documentElement.style.setProperty('--nav-height-js', navHeight + 'px');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 10) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+            });
+
+           
+            const track = document.querySelector('.carousel-track');
+            const prev = document.querySelector('.carousel-arrow.prev');
+            const next = document.querySelector('.carousel-arrow.next');
+            if (track && prev && next) {
+                const scrollAmount = 520; 
+                prev.addEventListener('click', () => track.scrollBy({left: -scrollAmount, behavior: 'smooth'}));
+                next.addEventListener('click', () => track.scrollBy({left: scrollAmount, behavior: 'smooth'}));
+            }
+        })();
+    </script>
+
+</body>
+</html>
