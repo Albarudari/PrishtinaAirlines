@@ -317,17 +317,6 @@ input {
   }
 }
 
-.container {
-  width: 85%;
-  margin: 40px auto;
-}
-
-.title {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #0a1d3b;
-  font-weight: bold;
-}
 
 
 .trending {
@@ -397,7 +386,6 @@ input {
 .card-body button:hover {
   background: #0b2b5e;
 }
-
 
 .about-airline {
     background: #0a1d3b;
@@ -483,7 +471,7 @@ input {
 }
 
 .airline-footer {
-    background: #0a1d3b;
+    background: #0d1b2a;
     color: #cfd8e6; 
     text-align: center;
     padding: 16px 10px;
