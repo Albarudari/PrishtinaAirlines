@@ -1,4 +1,55 @@
+/* Remove gap between navbar and hero */
+.hero {
+    margin-top: 0;
+    height: 460px;
+    background: linear-gradient(rgba(5, 20, 40, 0.65), rgba(5, 20, 40, 0.65)),url("projekt.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
 
+.hero .flight-box {
+    background: #fff;
+    padding: 25px;
+    width: 85%;
+    max-width: 1200px;
+    border-radius: 14px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+
+/* Hero flight box positioning */
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero .flight-box {
+    background: #fff;
+    padding: 25px;
+    width: 85%;
+    max-width: 1200px;
+    border-radius: 14px;
+    box-shadow: 0px 6px 18px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+/* Keep all your existing CSS below this point */
 .explore-london {
     margin: 48px auto 0 auto;
     max-width: 1200px;
@@ -143,7 +194,7 @@
 }
 .signin-btn {
     background: #fff;
-    color: var(--accent) !important;
+    color: #0a1d3b !important;
     border-radius: 8px;
     border: none;
     padding: 8px 18px;
@@ -247,259 +298,6 @@ body {
     max-width: 1180px;
 }
 
-
-.hero {
-    margin-top: var(--nav-height);
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    padding: 40px 20px;
-    background: linear-gradient(rgba(5,20,40,0.55), rgba(5,20,40,0.55)), url('images/hero-bg.jpg') center/cover no-repeat;
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: high-quality;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.hero .search-container {
-    width: 100%;
-    max-width: 1180px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px 40px;
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-}
-
-.hero-content h1 {
-    font-size: 56px;
-    font-weight: 700;
-    margin: 0 0 16px 0;
-}
-
-.hero-content p {
-    font-size: 24px;
-    margin: 0;
-    font-weight: 300;
-}
-
-
-.search-section {
-    background: white;
-    padding: 40px 20px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-    position: relative;
-    margin-top: -60px;
-    z-index: 10;
-}
-
-.search-container {
-    width: 100%;
-    max-width: 1180px;
-}
-
-.search-options {
-    margin-bottom: 20px;
-}
-
-.search-options label {
-    margin-right: 30px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    color: white;
-}
-
-.search-options input[type="radio"] {
-    margin-right: 8px;
-    cursor: pointer;
-    accent-color: #a855f7;
-}
-
-.hero .search-options label {
-    color: var(--accent);
-}
-
-.search-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr auto;
-    gap: 12px;
-    align-items: flex-end;
-    background: white;
-    padding: 28px 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    font-size: 12px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: var(--accent);
-    letter-spacing: 0.3px;
-}
-
-.form-group input {
-    padding: 11px 13px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    font-family: inherit;
-    background: #f9fafb;
-}
-
-.form-group input::placeholder {
-    :root{
-         --accent: #0d1b2a;
-         --light-bg: #eef3f7;
-         --nav-height: 64px;
-         --card-radius: 14px;
-         --accent-rgb: 13,27,42;
-    }
-    color: #999;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: var(--accent);
-    background: white;
-    box-shadow: 0 0 0 2px rgba(13, 27, 42, 0.08);
-}
-
-.search-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 11px 30px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    .navbar {
-        background: var(--accent);
-        color: #fff;
-        height: var(--nav-height);
-        padding: 0 6%;
-        font-size: 18px;
-        font-weight: 600;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 999;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        transition: box-shadow 0.18s ease, background-color 0.18s ease;
-    }
-    font-size: 14px;
-    white-space: nowrap;
-    transition: background 0.3s;
-}
-
-.search-btn:hover {
-    background: #051527;
-}
-
-
-.brands {
-    margin-top: var(--nav-height); 
-    background: transparent;
-    padding: 12px 0;
-}
-.brands-inner {
-    width: 92%;
-    .nav-left {
-         display: flex;
-         align-items: center;
-         gap: 12px;
-    }
-    .logo {
-        color: #fff;
-        font-size: 24px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        font-family: Arial, sans-serif;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-    .nav-links li {
-        list-style: none;
-    }
-    .nav-links li a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.15rem;
-        font-weight: 400;
-        transition: 0.3s;
-        padding: 8px 10px;
-        border-radius: 8px;
-        display: inline-block;
-    }
-    .nav-links li a:hover {
-        opacity: 0.8;
-        background: rgba(var(--accent-rgb),0.08);
-    }
-    .signin-btn {
-        background: #fff;
-        color: var(--accent) !important;
-        border-radius: 8px;
-        border: none;
-        padding: 8px 18px;
-        font-weight: 700;
-        cursor: pointer;
-        font-size: 1.1rem;
-        margin-left: 10px;
-        text-decoration: none !important;
-        display: inline-block;
-    }
-    font-size: 14px;
-}
-.brand .dot { color:#1976d2; } 
-    .nav-right {
-         display: flex;
-         align-items: center;
-         gap: 28px;
-    }
-    .nav-link {
-         color: #fff;
-         text-decoration: none;
-         font-size: 16px;
-         transition: 0.3s;
-         padding: 8px 10px;
-         border-radius: 8px;
-    }
-    .nav-link:hover { opacity: 0.8; background: rgba(var(--accent-rgb),0.08); }
-    .cta {
-         background: #fff;
-         color: var(--accent);
-         border-radius: 8px;
-         border: none;
-         padding: 8px 18px;
-         font-weight: 700;
-         cursor: pointer;
-         font-size: 16px;
-    }
-
-
 .title {
     font-size: 28px;
     font-weight: 700;
@@ -517,30 +315,10 @@ body {
     overflow-x: auto;
     padding-bottom: 8px;
     scroll-behavior: smooth;
-    .hero {
-        margin-top: var(--nav-height);
-        height: 420px;
-        background: url('images/hero-bg.jpg') center/cover no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: #fff;
-        padding: 40px 20px;
-        
-        filter: none !important;
-        background-blend-mode: normal !important;
-    }
     -webkit-overflow-scrolling: touch;
 }
 .carousel-track::-webkit-scrollbar { height: 10px; }
 .carousel-track::-webkit-scrollbar-thumb { background: rgba(13,27,42,0.12); border-radius: 8px; }
-
-    .search-options input[type="radio"] {
-         margin-right: 8px;
-         cursor: pointer;
-         accent-color: var(--accent);
-    }
 
 .hotel-card {
     min-width: 520px; 
@@ -556,21 +334,6 @@ body {
     flex: 0 0 auto;
 }
 .hotel-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(13,27,42,0.08); }
-    .search-btn {
-         background: var(--accent);
-         color: white;
-         border: none;
-         padding: 11px 30px;
-         border-radius: 6px;
-         font-weight: 600;
-         cursor: pointer;
-         font-size: 14px;
-         white-space: nowrap;
-         transition: background 0.3s;
-    }
-    .search-btn:hover {
-         background: #0d1b2a;
-    }
 
 
 .image-box img {
@@ -587,24 +350,7 @@ body {
 }
 .info-box h3 {
     margin: 0;
-    .carousel-arrow {
-         position: absolute;
-         top: 40%;
-         transform: translateY(-50%);
-         width: 36px;
-         height: 36px;
-         border-radius: 50%;
-         border: none;
-         background: rgba(var(--accent-rgb),0.06);
-         color: var(--accent);
-         cursor: pointer;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         font-size: 20px;
-    }
     font-size: 18px;
-    .carousel-track::-webkit-scrollbar-thumb { background: rgba(var(--accent-rgb),0.12); border-radius: 8px; }
 }
 .rating {
     margin: 6px 0;
@@ -755,6 +501,15 @@ body {
 }
 
 
+.airline-footer {
+    background: #0d1b2a;
+    color: #cfd8e6; 
+    text-align: center;
+    padding: 16px 10px;
+    font-size: 14px;
+}
+
+
 @media (max-width: 900px) {
     .hotel-card { min-width: 440px; }
     .features { grid-template-columns: 1fr; }
@@ -768,3 +523,4 @@ body {
     .image-box img { width:120px; height:80px; }
     .price-box { width:110px; }
 }
+
