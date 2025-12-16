@@ -1,4 +1,4 @@
-/* Explore London section styles */
+
 .explore-london {
     margin: 48px auto 0 auto;
     max-width: 1200px;
@@ -101,7 +101,7 @@
     .explore-grid { grid-template-columns: 1fr; }
     .explore-links { flex-direction: column; gap: 0; }
 }
-/* About Us section styles (copied from homepage) */
+
 .about-airline{
     background: var(--accent);
     color:#fff;
@@ -115,7 +115,7 @@
 .about-box p{ font-size:14px; margin:5px 0 }
 .about-box span{ display:block; margin-top:10px; font-size:13px; color:#cfd8e6 }
 .social-links{ display:flex; flex-direction:column; gap:1px; text-align:center }
-/* Fix for nav-links horizontal and white */
+
 .nav-links {
     display: flex;
     align-items: center;
@@ -155,13 +155,13 @@
     display: inline-block;
 }
 :root{
-    --accent: #0d1b2a;       /* preserve your blue/dark color */
-    --light-bg: #eef3f7;    /* preserve your light blue background */
+    --accent: #0d1b2a;       
+    --light-bg: #eef3f7;    
     --nav-height: 64px;
     --card-radius: 14px;
 }
 
-/* basic reset + background */
+
 * { box-sizing: border-box; }
 body {
     margin: 0;
@@ -172,7 +172,7 @@ body {
     -webkit-font-smoothing:antialiased;
 }
 
-/* NAVBAR - fixed at top and won't overlay content due to top spacing on main container */
+
 .navbar {
     background: var(--accent);
     color: white;
@@ -192,12 +192,12 @@ body {
     transition: box-shadow 0.18s ease, background-color 0.18s ease;
 }
 
-/* subtle shadow when scrolled so header reads well above content */
+
 .navbar.scrolled {
     box-shadow: 0 6px 20px rgba(13,27,42,0.12);
 }
 
-/* nav left: logo + title */
+
 .nav-left {
     display: flex;
     align-items: center;
@@ -216,7 +216,7 @@ body {
     font-size: 18px;
 }
 
-/* nav right links */
+
 .nav-right {
     display: flex;
     align-items: center;
@@ -240,14 +240,14 @@ body {
     cursor: pointer;
 }
 
-/* Keep the "main" content clear of the fixed navbar */
+
 .container {
     margin: 32px auto 64px;
     width: 92%;
     max-width: 1180px;
 }
 
-/* Hero Section */
+
 .hero {
     margin-top: var(--nav-height);
     height: 500px;
@@ -285,7 +285,7 @@ body {
     font-weight: 300;
 }
 
-/* Search Section */
+
 .search-section {
     background: white;
     padding: 40px 20px;
@@ -410,9 +410,9 @@ body {
     background: #051527;
 }
 
-/* Top brand bar (like the screenshot) */
+
 .brands {
-    margin-top: var(--nav-height); /* visually sits below fixed header */
+    margin-top: var(--nav-height); 
     background: transparent;
     padding: 12px 0;
 }
@@ -473,7 +473,7 @@ body {
     }
     font-size: 14px;
 }
-.brand .dot { color:#1976d2; } /* small accent for variety */
+.brand .dot { color:#1976d2; } 
     .nav-right {
          display: flex;
          align-items: center;
@@ -499,14 +499,14 @@ body {
          font-size: 16px;
     }
 
-/* Title */
+
 .title {
     font-size: 28px;
     font-weight: 700;
     margin: 8px 0 20px;
 }
 
-/* CAROUSEL - horizontal scroll track containing cards to match screenshot feel */
+
 .carousel {
     position: relative;
     padding: 8px 0 28px;
@@ -527,7 +527,7 @@ body {
         text-align: center;
         color: #fff;
         padding: 40px 20px;
-        /* Remove any overlay or filter for clarity */
+        
         filter: none !important;
         background-blend-mode: normal !important;
     }
@@ -541,9 +541,9 @@ body {
          cursor: pointer;
          accent-color: var(--accent);
     }
-/* HOTEL CARD - slightly smaller card to mimic screenshot */
+
 .hotel-card {
-    min-width: 520px; /* controls how many cards visible on wide screens */
+    min-width: 520px; 
     display: flex;
     background: white;
     border-radius: var(--card-radius);
@@ -572,7 +572,7 @@ body {
          background: #0d1b2a;
     }
 
-/* image */
+
 .image-box img {
     width: 200px;
     height: 120px;
@@ -581,7 +581,7 @@ body {
     display: block;
 }
 
-/* center info */
+
 .info-box {
     flex: 1;
 }
@@ -624,7 +624,7 @@ body {
     font-size: 12px;
 }
 
-/* price box */
+
 .price-box {
     text-align: right;
     width: 140px;
@@ -650,7 +650,7 @@ body {
 }
 .hotel-card button:hover { background: #19314b; }
 
-/* arrows and dots */
+
 .carousel-arrow {
     position: absolute;
     top: 40%;
@@ -682,7 +682,7 @@ body {
 }
 .carousel-dots .dot.active { background: var(--accent); }
 
-/* FEATURE ROW */
+
 .features {
     margin-top: 32px;
     display: grid;
@@ -705,7 +705,7 @@ body {
     font-size:26px;
 }
 
-/* about section */
+
 .about {
     margin-top: 30px;
     background: white;
@@ -713,7 +713,7 @@ body {
     border-radius: 10px;
 }
 
-/* Property Types Section */
+
 .property-types {
     margin-bottom: 40px;
 }
@@ -754,11 +754,11 @@ body {
     margin: 0;
 }
 
-/* Responsive */
+
 @media (max-width: 900px) {
     .hotel-card { min-width: 440px; }
     .features { grid-template-columns: 1fr; }
-    .nav-right { display: none; } /* simplify header on small screens, add a menu later */
+    .nav-right { display: none; } 
 }
 @media (max-width: 520px) {
     :root { --nav-height: 56px; }
