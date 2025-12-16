@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #0a1d3b, #0a1d3b);
+    background: linear-gradient(135deg, #0d1b2a, #0d1b2a);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@
 
 .signin-container h2 {
     margin-bottom: 20px;
-    color: #0a1d3b;
+    color: #0d1b2a;
     font-weight: 600;
 }
 
@@ -30,7 +30,7 @@ label {
     text-align: left;
     font-size: 14px;
     margin-top: 12px;
-    color: #0a1d3b;
+    color: #0d1b2a;
 }
 
 input {
@@ -45,7 +45,7 @@ input {
 }
 
 input:focus {
-    border-color: #0a1d3b;
+    border-color: #0d1b2a;
     box-shadow: 0 0 6px rgba(10, 29, 59, 0.4);
 }
 
@@ -54,7 +54,7 @@ input:focus {
     padding: 12px;
     margin-top: 20px;
     border: none;
-    background: #0a1d3b;
+    background: #0d1b2a;
     color: white;
     border-radius: 8px;
     font-size: 15px;
@@ -64,7 +64,7 @@ input:focus {
 }
 
 .signin-btn:hover {
-    background: #071529;
+    background: #0d1b2a;
 }
 
 .back {
@@ -77,10 +77,10 @@ input:focus {
 }
 
 .back:hover {
-    color: #071529;
+    color: #0d1b2a;
 }
 .create-account {
-    color: #0a1d3b;
+    color: #0d1b2a;
     font-weight: 600;
     text-decoration: none;
 }

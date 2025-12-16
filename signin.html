@@ -11,22 +11,26 @@
 
 <div class="signin-container">
     <h2>Sign In</h2>
+<form id="signinForm">
+    <label>Email</label>
+    <input type="email" id="email" placeholder="Enter your email" required>
 
-    <form>
-        <label>Email</label>
-        <input type="email" placeholder="Enter your email" required>
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Enter your password" required>
 
-        <label>Password</label>
-        <input type="password" placeholder="Enter your password" required>
+    <button type="submit" class="signin-btn">Login</button>
 
-        <button type="submit" class="signin-btn">Login</button>
+    <a href="homepage.html" class="back">← Back to Home</a>
 
-        <a href="homepage.html" class="back">← Back to Home</a>
+    <p class="signup-text">
+        Don't have an account?
+        <a href="signup.html" class="create-account">Create account</a>
+    </p>
+</form>
 
-        <p class="signup-text">Don't have an account?<a href="signup.html" class="create-account">Create account</a></p>
-    </form>
+<script src="signin.js"></script>
+
 </div>
 
 </body>
 </html>
-
