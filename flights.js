@@ -62,7 +62,10 @@ function editRoute() {
     }
 }
 
-document.querySelector('.summary-search').addEventListener('click', editRoute);
+document.querySelector('.summary-search').addEventListener('click', function(e) {
+    e.preventDefault(); // This prevents immediate navigation
+    editRoute();
+});
 
 updateDates();
 
