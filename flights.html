@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prishtina Airlines – Flights</title>
+  <link rel="stylesheet" href="flights.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">✈ Prishtina Airlines</div>
+  <ul class="nav-links">
+    <li><a href="homepage.html">Home</a></li>
+    <li><a href="#about">About Us</a></li>
+    <li><a href="flights.html">Flights</a></li>
+    <li><a href="hotels.html">Hotels</a></li>
+    <li><a href="#about">Contact</a></li>
+    <li><a class="signin-btn" href="signin.html">Sign In</a></li>
+  </ul>
+</nav>
+
+<div class="summary-bar-bg">
+  <div class="summary-bar">
+    <div class="summary-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    
+    <div class="summary-route-wide" onclick="editRoute()">
+      <span id="route-text">Pristina (PRN) – Munich (MUC)</span> 
+      · 
+      <span id="passenger-text">1 adult, 0 children</span>
+    </div>
+    
+    <div class="summary-dates">
+      <button class="date-btn" onclick="changeDate(-1, 'depart')">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <span id="depart-date">Sat, 20 Dec</span>
+      <button class="date-btn" onclick="changeDate(1, 'depart')">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      
+      <span class="dot">•</span>
+      
+      <button class="date-btn" onclick="changeDate(-1, 'return')">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <span id="return-date">Wed, 28 Jan</span>
+      <button class="date-btn" onclick="changeDate(1, 'return')">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="flights-container">
+
+<aside class="sidebar-filters">
+  <div class="filter-section">
+    <h4>Stops</h4>
+    <div class="stop-option">
+      <label>
+        <input type="checkbox" checked> 
+        Direct
+      </label>
+      <span class="stop-price">from €77</span>
+    </div>
+    <div class="stop-option">
+      <label>
+        <input type="checkbox"> 
+        1 stop
+      </label>
+      <span class="stop-price">from €104</span>
+    </div>
+    <div class="stop-option">
+      <label>
+        <input type="checkbox"> 
+        2+ stops
+      </label>
+      <span class="stop-price">from €174</span>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <div class="baggage-header">
+      <h4>Baggage</h4>
+      <button class="select-all">Select all</button>
+    </div>
+    <div class="baggage-option">
+      <label>
+        <input type="checkbox"> 
+        Cabin bag
+      </label>
+    </div>
+    <div class="baggage-option">
+      <label>
+        <input type="checkbox"> 
+        Checked bag
+      </label>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h4>Departure times</h4>
+    <div class="departure-times">
+      <div class="time-range">
+        <h5>Outbound</h5>
+        <span>00:00 - 12:00</span>
+        <input type="range" min="0" max="23" value="6">
+      </div>
+      <div class="time-range">
+        <h5>Return</h5>
+        <span>00:00 - 23:59</span>
+        <input type="range" min="0" max="23" value="12">
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-section">
+    <h4>Journey duration</h4>
+    <div class="duration-range">
+      <div class="duration-labels">
+        <span>2.0 hours</span>
+        <span>32.0 hours</span>
+      </div>
+      <input type="range" min="2" max="32" value="8" step="0.1">
+      <div class="duration-value">8.0 hours</div>
+    </div>
+  </div>
+
+  <div class="filter-section hotel-box">
+    <h3>Found flights?</h3>
+    <p>Now find a hotel for your stay.</p>
+    <a href="hotels.html" class="hotel-btn">Explore hotels</a>
+  </div>
+</aside>
+
+<main class="flights-main">
+  <h2>Available Flights</h2>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Eurowings</div>
+      <div class="time">15:50</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → MUC</div>
+      <div class="duration-container">
+        <span class="duration">1h 50m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€81</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Lufthansa</div>
+      <div class="time">12:40</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → MUC</div>
+      <div class="duration-container">
+        <span class="duration">1h 45m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€95</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Wizz Air</div>
+      <div class="time">11:30</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → MUC</div>
+      <div class="duration-container">
+        <span class="duration">1h 45m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€79</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">British Airways</div>
+      <div class="time">12:40</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → LON</div>
+      <div class="duration-container">
+        <span class="duration">1h 45m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€95</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">easyJet</div>
+      <div class="time">06:00</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → LON</div>
+      <div class="duration-container">
+        <span class="duration">1h 50m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€77</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Turkish Airlines</div>
+      <div class="time">14:20</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → IST</div>
+      <div class="duration-container">
+        <span class="duration">2h 10m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€89</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Austrian Airlines</div>
+      <div class="time">09:15</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → VIE</div>
+      <div class="duration-container">
+        <span class="duration">1h 55m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€92</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Air France</div>
+      <div class="time">13:45</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → CDG</div>
+      <div class="duration-container">
+        <span class="duration">2h 30m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€108</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Swiss International</div>
+      <div class="time">10:30</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → ZRH</div>
+      <div class="duration-container">
+        <span class="duration">2h 15m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€115</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">KLM Royal Dutch</div>
+      <div class="time">16:20</div>
+    </div>
+    
+    <div class="flight-center">
+      <div class="route">PRN → AMS</div>
+      <div class="duration-container">
+        <span class="duration">2h 40m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€99</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<section id="about" class="about-airline">
+    <div class="about-container">
+        <h2>About Prishtina Airlines</h2>
+        <br>
+        <p class="about-desc">
+            Prishtina Airlines is a modern airline focused on providing safe,
+            affordable and comfortable flights across Europe and beyond.
+            Our mission is to connect people with world-class service and
+            reliable travel experiences.
+        </p>
+        <div class="about-info">
+            <div class="about-box">
+                <h4>Locations</h4>
+                <p>Prishtina International Airport, Kosovo</p>
+                <p>Prishtina Mall, Prishtina</p>
+                <p>Dukagjini Center, Prishtina</p>
+            </div>
+            <div class="about-box">
+                <h4>Call Center</h4>
+                <p>+383 44 123 456</p>
+                <p>+383 45 234 567</p>
+                <p>+383 49 345 678</p>
+                <span>Working hours: 08:00 – 00:00</span>
+            </div>
+            <div class="about-box">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <p>Facebook: Prishtina Airlines</p>
+                    <p>Instagram: prishtinaairlines</p>
+                    <p>Twitter: prishtinaairlines</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="airline-footer">
+    © 2025 Prishtina Airlines. All rights reserved.
+</footer>
+
+<script src="flights.js"></script>
+
+</body>
+</html>

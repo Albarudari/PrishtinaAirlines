@@ -1,4 +1,4 @@
-document.querySelector(".search-btn").onclick = () => {
+document.querySelector(".search-btn").onclick = (e) => {
     alert("Searching flights...");
 };
 
