@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Prishtina Airlines</title>
+    <link rel="stylesheet" href="signup.css">
+    <script src="signup.js"></script>
+</head>
+
+<body class="signup-body">
+
+<div class="signup-container">
+
+    <h2>Create Account</h2>
+
+    <form id="signupForm">
+
+        <div class="row">
+            <div class="field">
+                <label>First Name</label>
+                <input type="text" placeholder="Enter first name" required>
+            </div>
+
+            <div class="field">
+                <label>Last Name</label>
+                <input type="text" placeholder="Enter last name" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label>Date of Birth</label>
+                <input type="date" required>
+            </div>
+
+            <div class="field">
+                <label>Nationality</label>
+                <select required>
+                    <option>Select</option>
+                    <option>Albanian</option>
+                    <option>Kosovar</option>
+                    <option>Macedonian</option>
+                    <option>Other</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label>Country</label>
+                <select required>
+                    <option>Select</option>
+                    <option>Kosovo</option>
+                    <option>Albania</option>
+                    <option>North Macedonia</option>
+                    <option>Germany</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>City</label>
+                <input type="text" placeholder="Enter city" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label>ZIP Code</label>
+                <input type="text" placeholder="Enter ZIP code" required>
+            </div>
+
+            <div class="field">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="+383 44 000 000" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label>Email</label>
+                <input type="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="field">
+                <label>Password</label>
+                <input type="password" placeholder="Create a password" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="field">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Retype password" required>
+            </div>
+        </div>
+
+        <button class="signup-btn">Create Account</button>
+
+        <a class="back" href="homepage.html">← Back to Home</a>
+
+        <p class="signin-text">Already have an account?
+            <a href="signin.html">Sign In</a>
+        </p>
+    <p id="formMessage"></p>
+</form>
+
+</div>
+
+</body>
+</html>
+
