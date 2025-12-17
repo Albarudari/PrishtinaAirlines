@@ -1,47 +1,97 @@
-document.getElementById("signupForm").addEventListener("submit", function (e) {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
 
-  const inputs = document.querySelectorAll("#signupForm input, #signupForm select");
-  const message = document.getElementById("formMessage");
+    const form = document.getElementById("signupForm");
 
-  let password = document.querySelector('input[type="password"]').value;
-  let confirmPassword = document.querySelectorAll('input[type="password"]')[1].value;
-  let email = document.querySelector('input[type="email"]').value;
-  let phone = document.querySelector('input[type="tel"]').value;
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-  message.textContent = "";
-  message.style.color = "red";
+        document.querySelectorAll(".error").forEach(el => el.textContent = "");
 
-  for (let input of inputs) {
-    if (input.value.trim() === "" || input.value === "Select") {
-      message.textContent = "Please fill in all fields.";
-      return;
-    }
-  }
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const dob = document.getElementById("dob").value;
+        const nationality = document.getElementById("nationality").value;
+        const country = document.getElementById("country").value;
+        const city = document.getElementById("city").value.trim();
+        const zip = document.getElementById("zip").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
 
-  if (!email.includes("@") || !email.includes(".")) {
-    message.textContent = "Please enter a valid email address.";
-    return;
-  }
+        let valid = true;
 
-  if (phone.length < 8) {
-    message.textContent = "Please enter a valid phone number.";
-    return;
-  }
+        if (firstName.length < 2) {
+            document.getElementById("firstNameError").textContent =
+                "First name must have at least 2 letters";
+            valid = false;
+        }
 
-  if (password.length < 6) {
-    message.textContent = "Password must be at least 6 characters.";
-    return;
-  }
+        if (lastName.length < 2) {
+            document.getElementById("lastNameError").textContent =
+                "Last name must have at least 2 letters";
+            valid = false;
+        }
 
-  if (password !== confirmPassword) {
-    message.textContent = "Passwords do not match.";
-    return;
-  }
+        if (dob === "") {
+            document.getElementById("dobError").textContent =
+                "Please select your date of birth";
+            valid = false;
+        }
 
-  message.style.color = "green";
-  message.textContent = "Account created successfully!";
-  alert("Sign up successful!");
+        if (nationality === "Select") {
+            document.getElementById("nationalityError").textContent =
+                "Please select nationality";
+            valid = false;
+        }
 
-  document.getElementById("signupForm").reset();
+        if (country === "Select") {
+            document.getElementById("countryError").textContent =
+                "Please select country";
+            valid = false;
+        }
+
+        if (city.length < 2) {
+            document.getElementById("cityError").textContent =
+                "City must have at least 2 characters";
+            valid = false;
+        }
+
+        if (!/^\d{4,}$/.test(zip)) {
+            document.getElementById("zipError").textContent =
+                "ZIP code must have at least 4 numbers";
+            valid = false;
+        }
+
+        if (!/^\+?\d{8,}$/.test(phone)) {
+            document.getElementById("phoneError").textContent =
+                "Enter a valid phone number";
+            valid = false;
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.com$/.test(email)) {
+            document.getElementById("emailError").textContent =
+                "Email must be valid and end with .com";
+            valid = false;
+        }
+
+        if (password.length < 8) {
+            document.getElementById("passwordError").textContent =
+                "Password must have at least 8 characters";
+            valid = false;
+        }
+
+        if (password !== confirmPassword) {
+            document.getElementById("confirmPasswordError").textContent =
+                "Passwords do not match";
+            valid = false;
+        }
+
+        if (valid) {
+            alert("Account created successfully!");
+            form.reset();
+        }
+    });
 });
+
+

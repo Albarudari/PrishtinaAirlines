@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - Prishtina Airlines</title>
     <link rel="stylesheet" href="signup.css">
-    <script src="signup.js"></script>
 </head>
 
 <body class="signup-body">
@@ -14,99 +13,113 @@
 
     <h2>Create Account</h2>
 
-    <form id="signupForm">
+    <form id="signupForm" novalidate>
 
         <div class="row">
             <div class="field">
-                <label>First Name</label>
-                <input type="text" placeholder="Enter first name" required>
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="Enter first name">
+                <span class="error" id="firstNameError"></span>
             </div>
 
             <div class="field">
-                <label>Last Name</label>
-                <input type="text" placeholder="Enter last name" required>
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Enter last name">
+                <span class="error" id="lastNameError"></span>
             </div>
         </div>
 
         <div class="row">
             <div class="field">
-                <label>Date of Birth</label>
-                <input type="date" required>
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob">
+                <span class="error" id="dobError"></span>
             </div>
 
             <div class="field">
-                <label>Nationality</label>
-                <select required>
-                    <option>Select</option>
+                <label for="nationality">Nationality</label>
+                <select id="nationality">
+                    <option value="Select">Select</option>
                     <option>Albanian</option>
                     <option>Kosovar</option>
                     <option>Macedonian</option>
                     <option>Other</option>
                 </select>
+                <span class="error" id="nationalityError"></span>
             </div>
         </div>
 
         <div class="row">
             <div class="field">
-                <label>Country</label>
-                <select required>
-                    <option>Select</option>
+                <label for="country">Country</label>
+                <select id="country">
+                    <option value="Select">Select</option>
                     <option>Kosovo</option>
                     <option>Albania</option>
                     <option>North Macedonia</option>
                     <option>Germany</option>
                 </select>
+                <span class="error" id="countryError"></span>
             </div>
 
             <div class="field">
-                <label>City</label>
-                <input type="text" placeholder="Enter city" required>
+                <label for="city">City</label>
+                <input type="text" id="city" placeholder="Enter city">
+                <span class="error" id="cityError"></span>
             </div>
         </div>
 
         <div class="row">
             <div class="field">
-                <label>ZIP Code</label>
-                <input type="text" placeholder="Enter ZIP code" required>
+                <label for="zip">ZIP Code</label>
+                <input type="text" id="zip" placeholder="Enter ZIP code">
+                <span class="error" id="zipError"></span>
             </div>
 
             <div class="field">
-                <label>Phone Number</label>
-                <input type="tel" placeholder="+383 44 000 000" required>
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="+383 44 000 000">
+                <span class="error" id="phoneError"></span>
             </div>
         </div>
 
         <div class="row">
             <div class="field">
-                <label>Email</label>
-                <input type="email" placeholder="Enter your email" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+                <span class="error" id="emailError"></span>
             </div>
 
             <div class="field">
-                <label>Password</label>
-                <input type="password" placeholder="Create a password" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Create a password">
+                <span class="error" id="passwordError"></span>
             </div>
         </div>
 
         <div class="row">
             <div class="field">
-                <label>Confirm Password</label>
-                <input type="password" placeholder="Retype password" required>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Retype password">
+                <span class="error" id="confirmPasswordError"></span>
             </div>
         </div>
 
-        <button class="signup-btn">Create Account</button>
+        <button type="submit" class="signup-btn">Create Account</button>
 
         <a class="back" href="homepage.html">← Back to Home</a>
 
-        <p class="signin-text">Already have an account?
+        <p class="signin-text">
+            Already have an account?
             <a href="signin.html">Sign In</a>
         </p>
-    <p id="formMessage"></p>
-</form>
+
+        <p id="formMessage"></p>
+
+    </form>
 
 </div>
 
+<script src="signup.js"></script>
 </body>
 </html>
-

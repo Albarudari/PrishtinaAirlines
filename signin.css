@@ -89,3 +89,8 @@ input:focus {
     from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+.error {
+    color: #ff4d4d;
+    font-size: 13px;
+    margin: 5px 0 15px;
+}
