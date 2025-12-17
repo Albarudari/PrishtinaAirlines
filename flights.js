@@ -63,7 +63,7 @@ function editRoute() {
 }
 
 document.querySelector('.summary-search').addEventListener('click', function(e) {
-    e.preventDefault(); // This prevents immediate navigation
+    e.preventDefault(); 
     editRoute();
 });
 
