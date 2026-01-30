@@ -1,97 +1,66 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-    const form = document.getElementById("signupForm");
+    document.querySelectorAll(".error").forEach(el => el.textContent = "");
+    const formMsg = document.getElementById("formMessage");
+    if (formMsg) formMsg.textContent = "";
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
+    let valid = true;
 
-        document.querySelectorAll(".error").forEach(el => el.textContent = "");
+    const emailInput = document.getElementById("email");
+    const email = emailInput ? emailInput.value.trim() : "";
+    const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|io)$/i;
+    
+    if (!emailRegex.test(email)) {
+        const errSpan = document.getElementById("emailError");
+        if (errSpan) errSpan.textContent = "Email must end with .com, .net, .org, .edu, .gov or .io";
+        valid = false;
+    }
 
-        const firstName = document.getElementById("firstName").value.trim();
-        const lastName = document.getElementById("lastName").value.trim();
-        const dob = document.getElementById("dob").value;
-        const nationality = document.getElementById("nationality").value;
-        const country = document.getElementById("country").value;
-        const city = document.getElementById("city").value.trim();
-        const zip = document.getElementById("zip").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value;
-        const confirmPassword = document.getElementById("confirmPassword").value;
+    const passInput = document.getElementById("password");
+    const password = passInput ? passInput.value : "";
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[.!@#$%^&*]).{8,}$/;
+    
+    if (!passwordRegex.test(password)) {
+        const errSpan = document.getElementById("passwordError");
+        if (errSpan) errSpan.textContent = "Min 8 chars, 1 Uppercase, 1 Number and 1 Symbol";
+        valid = false;
+    }
 
-        let valid = true;
+    const confirmPassInput = document.getElementById("confirmPassword");
+    const confirmPassword = confirmPassInput ? confirmPassInput.value : "";
+    if (password !== confirmPassword) {
+        const errSpan = document.getElementById("confirmPasswordError");
+        if (errSpan) errSpan.textContent = "Passwords do not match!";
+        valid = false;
+    }
 
-        if (firstName.length < 2) {
-            document.getElementById("firstNameError").textContent =
-                "First name must have at least 2 letters";
+    const fields = [
+        { id: "firstName", err: "firstNameError" },
+        { id: "lastName", err: "lastNameError" },
+        { id: "dob", err: "dobError" },
+        { id: "city", err: "cityError" },
+        { id: "zip", err: "zipError" },
+        { id: "phone", err: "phoneError" }
+    ];
+
+    fields.forEach(f => {
+        const input = document.getElementById(f.id);
+        if (input && input.value.trim() === "") {
+            const errSpan = document.getElementById(f.err);
+            if (errSpan) errSpan.textContent = "This field is required";
             valid = false;
-        }
-
-        if (lastName.length < 2) {
-            document.getElementById("lastNameError").textContent =
-                "Last name must have at least 2 letters";
-            valid = false;
-        }
-
-        if (dob === "") {
-            document.getElementById("dobError").textContent =
-                "Please select your date of birth";
-            valid = false;
-        }
-
-        if (nationality === "Select") {
-            document.getElementById("nationalityError").textContent =
-                "Please select nationality";
-            valid = false;
-        }
-
-        if (country === "Select") {
-            document.getElementById("countryError").textContent =
-                "Please select country";
-            valid = false;
-        }
-
-        if (city.length < 2) {
-            document.getElementById("cityError").textContent =
-                "City must have at least 2 characters";
-            valid = false;
-        }
-
-        if (!/^\d{4,}$/.test(zip)) {
-            document.getElementById("zipError").textContent =
-                "ZIP code must have at least 4 numbers";
-            valid = false;
-        }
-
-        if (!/^\+?\d{8,}$/.test(phone)) {
-            document.getElementById("phoneError").textContent =
-                "Enter a valid phone number";
-            valid = false;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.com$/.test(email)) {
-            document.getElementById("emailError").textContent =
-                "Email must be valid and end with .com";
-            valid = false;
-        }
-
-        if (password.length < 8) {
-            document.getElementById("passwordError").textContent =
-                "Password must have at least 8 characters";
-            valid = false;
-        }
-
-        if (password !== confirmPassword) {
-            document.getElementById("confirmPasswordError").textContent =
-                "Passwords do not match";
-            valid = false;
-        }
-
-        if (valid) {
-            alert("Account created successfully!");
-            form.reset();
         }
     });
+
+    if (valid) {
+        if (formMsg) {
+            formMsg.style.color = "green";
+            formMsg.textContent = "Success! Redirecting...";
+        }
+        
+        setTimeout(() => {
+            this.submit(); 
+        }, 1200);
+    }
 });
-
-

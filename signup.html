@@ -13,18 +13,18 @@
 
     <h2>Create Account</h2>
 
-    <form id="signupForm" novalidate>
+    <form id="signupForm" action="signup.php" method="POST" novalidate>
 
         <div class="row">
             <div class="field">
                 <label for="firstName">First Name</label>
-                <input type="text" id="firstName" placeholder="Enter first name">
+                <input type="text" id="firstName" name="first_name" placeholder="Enter first name">
                 <span class="error" id="firstNameError"></span>
             </div>
 
             <div class="field">
                 <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" placeholder="Enter last name">
+                <input type="text" id="lastName" name="last_name" placeholder="Enter last name">
                 <span class="error" id="lastNameError"></span>
             </div>
         </div>
@@ -32,18 +32,18 @@
         <div class="row">
             <div class="field">
                 <label for="dob">Date of Birth</label>
-                <input type="date" id="dob">
+                <input type="date" id="dob" name="dob">
                 <span class="error" id="dobError"></span>
             </div>
 
             <div class="field">
                 <label for="nationality">Nationality</label>
-                <select id="nationality">
+                <select id="nationality" name="nationality">
                     <option value="Select">Select</option>
-                    <option>Albanian</option>
-                    <option>Kosovar</option>
-                    <option>Macedonian</option>
-                    <option>Other</option>
+                    <option value="Albanian">Albanian</option>
+                    <option value="Kosovar">Kosovar</option>
+                    <option value="Macedonian">Macedonian</option>
+                    <option value="Other">Other</option>
                 </select>
                 <span class="error" id="nationalityError"></span>
             </div>
@@ -52,19 +52,19 @@
         <div class="row">
             <div class="field">
                 <label for="country">Country</label>
-                <select id="country">
+                <select id="country" name="country">
                     <option value="Select">Select</option>
-                    <option>Kosovo</option>
-                    <option>Albania</option>
-                    <option>North Macedonia</option>
-                    <option>Germany</option>
+                    <option value="Kosovo">Kosovo</option>
+                    <option value="Albania">Albania</option>
+                    <option value="North Macedonia">North Macedonia</option>
+                    <option value="Germany">Germany</option>
                 </select>
                 <span class="error" id="countryError"></span>
             </div>
 
             <div class="field">
                 <label for="city">City</label>
-                <input type="text" id="city" placeholder="Enter city">
+                <input type="text" id="city" name="city" placeholder="Enter city">
                 <span class="error" id="cityError"></span>
             </div>
         </div>
@@ -72,13 +72,13 @@
         <div class="row">
             <div class="field">
                 <label for="zip">ZIP Code</label>
-                <input type="text" id="zip" placeholder="Enter ZIP code">
+                <input type="text" id="zip" name="zip" placeholder="Enter ZIP code">
                 <span class="error" id="zipError"></span>
             </div>
 
             <div class="field">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" placeholder="+383 44 000 000">
+                <input type="tel" id="phone" name="phone" placeholder="+383 44 000 000">
                 <span class="error" id="phoneError"></span>
             </div>
         </div>
@@ -86,13 +86,13 @@
         <div class="row">
             <div class="field">
                 <label for="email">Email</label>
-                <input type="email" id="email" placeholder="Enter your email">
+                <input type="email" id="email" name="email" placeholder="Enter your email">
                 <span class="error" id="emailError"></span>
             </div>
 
             <div class="field">
                 <label for="password">Password</label>
-                <input type="password" id="password" placeholder="Create a password">
+                <input type="password" id="password" name="password" placeholder="Create a password">
                 <span class="error" id="passwordError"></span>
             </div>
         </div>
@@ -100,18 +100,18 @@
         <div class="row">
             <div class="field">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" placeholder="Retype password">
+                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Retype password">
                 <span class="error" id="confirmPasswordError"></span>
             </div>
         </div>
 
         <button type="submit" class="signup-btn">Create Account</button>
 
-        <a class="back" href="homepage.html">← Back to Home</a>
+        <a class="back" href="homepage.php">← Back to Home</a>
 
         <p class="signin-text">
             Already have an account?
-            <a href="signin.html">Sign In</a>
+            <a href="signin.php">Sign In</a>
         </p>
 
         <p id="formMessage"></p>
@@ -119,7 +119,6 @@
     </form>
 
 </div>
-
-<script src="signup.js"></script>
+        <script src="signup.js"></script>
 </body>
 </html>

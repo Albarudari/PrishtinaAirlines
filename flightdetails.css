@@ -48,18 +48,16 @@ nav ul li a:hover {
 }
 
 
-/* MAIN */
 .container {
   display: grid;
   grid-template-columns: 2.2fr 1fr;
   gap: 40px;
   padding: 10px 6%;
   margin-top: 110px;
-  align-items: start; /* ✅ KY E RREGULLON */
+  align-items: start; 
 }
 
 
-/* FORM */
 .form-area h2 {
   margin-bottom: 20px;
 }
@@ -99,13 +97,12 @@ label {
 
 input, select {
   padding: 12px;
-  border: 1px solid #0d1b2a;   /* ✅ kjo osht e saktë */
+  border: 1px solid #0d1b2a;  
   border-radius: 6px;
   font-size: 14px;
   outline: none;
 }
 
-/* ACTIONS */
 .actions {
   display: flex;
   justify-content: space-between;
@@ -114,8 +111,8 @@ input, select {
 .back {
   text-decoration: none;
   display: flex;
-  align-items: center;      /* qendër vertikale */
-  justify-content: center;  /* qendër horizontale */
+  align-items: center; 
+  justify-content: center; 
 
   background: transparent;
   border: 2px solid #0d1b2a;
@@ -141,21 +138,17 @@ input, select {
 
 }
 
-/* hover */
 .hotel-btn:hover {
   background-color: #132c46;
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(13, 27, 42, 0.35);
 }
 
-/* klik */
 .hotel-btn:active {
   transform: translateY(0);
   box-shadow: 0 4px 12px rgba(13, 27, 42, 0.25);
 }
 
-
-/* BASKET */
 .basket {
   background: white;
   padding: 25px;
@@ -184,7 +177,6 @@ input, select {
   font-size: 14px;
 }
 
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .container {
     grid-template-columns: 1fr;
