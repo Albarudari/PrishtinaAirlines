@@ -254,6 +254,13 @@
     © 2025 Prishtina Airlines. All rights reserved.
 </footer>
 
+
+<div style="text-align: center; padding: 20px; background: #f5f7fa;">
+<a href="admin_dashboard.php" style="color: #0d1b2a; font-weight: bold; text-decoration: none; border: 1px solid #0d1b2a; padding: 10px 20px; border-radius: 5px;">
+Shko te Dashboard (Admin Test) ✈
+</a>
+</div>
+
   <script src="homepage.js"></script>
 
 </body>
