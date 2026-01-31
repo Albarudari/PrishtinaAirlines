@@ -1,0 +1,82 @@
+/* edit_user.css */
+body { 
+    background-color: #0d1b2a; /* Navy Blue */
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.edit-card { 
+    background: white; 
+    width: 100%;
+    max-width: 450px; 
+    padding: 40px; 
+    border-radius: 12px; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
+}
+
+h2 { 
+    color: #0d1b2a; 
+    margin-bottom: 25px; 
+    text-align: center; 
+    font-size: 24px;
+}
+
+label { 
+    display: block; 
+    margin-bottom: 5px; 
+    color: #666; 
+    font-size: 14px; 
+    font-weight: 600; 
+}
+
+input, select { 
+    width: 100%; 
+    padding: 12px; 
+    margin-bottom: 20px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+    font-size: 15px;
+}
+
+.button-group { 
+    display: flex; 
+    gap: 15px; 
+    margin-top: 10px;
+}
+
+.btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: none;
+    font-size: 14px;
+}
+
+.save-btn { 
+    background-color: #2ab3d5; 
+    color: white; 
+}
+
+.save-btn:hover { 
+    background-color: #218ba6; 
+}
+
+.cancel-btn { 
+    background-color: #f1f1f1; 
+    color: #333; 
+    border: 1px solid #ddd;
+}
+
+.cancel-btn:hover { 
+    background-color: #e2e2e2; 
+}

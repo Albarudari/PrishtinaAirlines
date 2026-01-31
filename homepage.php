@@ -1,3 +1,16 @@
+<?php
+// 1. Startojmë sesionin (Duhet të jetë rreshti i parë)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// 2. Kontrollojmë nëse përdoruesi është Admin
+$showAdminButton = false;
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
+    $showAdminButton = true;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,29 +18,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prishtina Airlines</title>
     <link rel="stylesheet" href="homepage.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .admin-button {
+            position: fixed !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            background-color: #2ab3d5 !important;
+            color: white !important;
+            padding: 12px 20px !important;
+            border-radius: 50px !important;
+            text-decoration: none !important;
+            font-weight: bold !important;
+            z-index: 999999 !important;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+<?php if ($showAdminButton): ?>
+    <a href="admin_dashboard.php" class="admin-button">
+        <i class="fa-solid fa-user-shield"></i> Admin Panel
+    </a>
+<?php endif; ?>
 
 <nav class="navbar">
     <div class="logo">✈ Prishtina Airlines</div>
     <ul class="nav-links">
-        <li><a href="homepage.html">Home</a></li>
+        <li><a href="homepage.php">Home</a></li>
         <li><a href="#about">About Us</a></li>
-        <li><a href="flights.html">Flights</a></li>
-        <li><a href="hotels.html">Hotels</a></li>
+        <li><a href="flights.php">Flights</a></li>
+        <li><a href="hotels.php">Hotels</a></li>
         <li><a href="#about">Contact</a></li>
         <li><a class="signin-btn" href="signin.html">Sign In</a></li>
     </ul>
 </nav>
 
-  <section class="hero">
+<section class="hero">
     <div class="hero-content">
       <h1>Fly the Future</h1>
       <p>Your journey begins with us.</p>
       <a href="#" class="hero-btn">Book a Flight</a>
     </div>
-  </section>
+</section>
 
- <div class="flight-box">
-
+<div class="flight-box">
     <div class="trip-options">
         <label>
             <input type="radio" name="trip" value="round" checked onclick="toggleReturn()">
@@ -61,13 +99,8 @@
         </div>
 
         <a href="flights.html" class="search-btn">Search ✈</a>
-
     </div>
-
 </div>
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <div class="services">
     <div class="service-box">
@@ -81,13 +114,13 @@
     </div>
     
     <div>
-<a href="hotels.html" class="service-box">
-    <div class="service-icon"><i class="fa-solid fa-hotel"></i></div>
-    <span>Book a Hotel</span>
-</a>
-</div>
+        <a href="hotels.html" class="service-box">
+            <div class="service-icon"><i class="fa-solid fa-hotel"></i></div>
+            <span>Book a Hotel</span>
+        </a>
+    </div>
 
- <div class="service-box">
+    <div class="service-box">
         <div class="service-icon"><i class="fa-solid fa-car"></i></div>
         <span>Rent a Car</span>
     </div>
@@ -102,20 +135,15 @@
         <span>Gift Card</span>
     </div>
 </div>
+
 <section class="top-offers">
   <h2>Top Offers</h2>
-
   <div class="offers-wrapper">
-
     <div class="offer-card">
       <img src="christmas.jpg" alt="Winter Sale">
       <span class="offer-badge">-30%</span>
-
       <h3>Special Winter Sale</h3>
-      <p>
-        Save up to 30% on selected winter routes.
-        Travel until 31 Jan 2025.
-      </p>
+      <p>Save up to 30% on selected winter routes. Travel until 31 Jan 2025.</p>
       <br>
       <button onclick="showMessage()">View Deals</button>
     </div>
@@ -123,10 +151,7 @@
     <div class="offer-card">
       <img src="businessclass.jpg" alt="Business Class">
       <h3>Business Class Upgrade</h3>
-      <p>
-        Enjoy premium seats, lounge access
-        and priority boarding.
-      </p>
+      <p>Enjoy premium seats, lounge access and priority boarding.</p>
       <br>
       <button onclick="showMessage()">Upgrade Now</button>
     </div>
@@ -134,34 +159,23 @@
     <div class="offer-card">
       <img src="bali.jpg" alt="New Routes">
       <h3>New Routes 2025</h3>
-      <p>
-        Discover new destinations launching in 2025:
-        Bali, Dubai, Tokyo.
-      </p>
+      <p>Discover new destinations launching in 2025: Bali, Dubai, Tokyo.</p>
       <br>
       <button onclick="showMessage()">Explore Routes</button>
     </div>
 
     <div class="offer-card">
-  <img src="privatejet.jpg" alt="Private Jet">
-
-  <h3>Book a Private Jet</h3>
-  <p>
-    Fly on your own schedule with full privacy and comfort.
-    Request a private jet charter anytime.
-  </p>
-
-  <button onclick="openJetForm()">Request Quote</button>
-</div>
-
+      <img src="privatejet.jpg" alt="Private Jet">
+      <h3>Book a Private Jet</h3>
+      <p>Fly on your own schedule with full privacy and comfort.</p>
+      <button onclick="openJetForm()">Request Quote</button>
+    </div>
   </div>
 </section>
 
-  <section class="trending">
+<section class="trending">
     <h1>Trending Destinations</h1>
-
     <div class="cards">
-
       <div class="card">
         <img src="newyork.avif" alt="New York">
         <div class="card-body">
@@ -171,7 +185,6 @@
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
-
       <div class="card">
         <img src="london.avif" alt="London">
         <div class="card-body">
@@ -181,7 +194,6 @@
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
-
       <div class="card">
         <img src="barcelona.webp" alt="Barcelona">
         <div class="card-body">
@@ -191,7 +203,6 @@
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
-
       <div class="card">
         <img src="paris.webp" alt="Paris">
         <div class="card-body">
@@ -201,25 +212,21 @@
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
-
     </div>
-  </section>
+</section>
 
 <br>
 <br>
 <section id="about" class="about-airline">
     <div class="about-container">
-
         <h2>About Prishtina Airlines</h2>
         <br>
-
         <p class="about-desc">
             Prishtina Airlines is a modern airline focused on providing safe,
             affordable and comfortable flights across Europe and beyond.
             Our mission is to connect people with world-class service and
             reliable travel experiences.
         </p>
-
         <div class="about-info">
             <div class="about-box">
                 <h4>Locations</h4>
@@ -227,7 +234,6 @@
                 <p>Prishtina Mall, Prishtina</p>
                 <p>Dukagjini Center, Prishtina</p>
             </div>
-
             <div class="about-box">
                 <h4>Call Center</h4>
                 <p>+383 44 123 456</p>
@@ -235,7 +241,6 @@
                 <p>+383 49 345 678</p>
                 <span>Working hours: 08:00 – 00:00</span>
             </div>
-
             <div class="about-box">
                 <h4>Follow Us</h4>
                 <div class="social-links">
@@ -245,7 +250,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 
@@ -254,14 +258,6 @@
     © 2025 Prishtina Airlines. All rights reserved.
 </footer>
 
-
-<div style="text-align: center; padding: 20px; background: #f5f7fa;">
-<a href="admin_dashboard.php" style="color: #0d1b2a; font-weight: bold; text-decoration: none; border: 1px solid #0d1b2a; padding: 10px 20px; border-radius: 5px;">
-Shko te Dashboard (Admin Test) ✈
-</a>
-</div>
-
-  <script src="homepage.js"></script>
-
+<script src="homepage.js"></script>
 </body>
 </html>

@@ -476,3 +476,34 @@ input {
     padding: 40px 20px;
   }
 }
+
+
+/* Stili per bjutonin e adminit */
+.admin-float-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0d1b2a; 
+    color: #f1c40f; 
+    padding: 12px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-float-btn:hover {
+    background-color: #1b263b;
+    transform: translateY(-5px);
+    color: #ffffff;
+}
+
+.admin-float-btn i {
+    font-size: 1.2rem;
+}
+

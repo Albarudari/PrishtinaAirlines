@@ -7,30 +7,34 @@ class User {
         $this->conn = $db;
     }
 
-    public function register($name, $surname, $dob, $nationality, $country, $city, $zip, $phone, $email, $password) {
+    public function register($name, $surname, $birthdate, $nationality, $country, $city, $zip_code, $phone, $email, $password) {
+        
         $query = "INSERT INTO " . $this->table_name . " 
-                  (name, surname, dob, nationality, country, city, zip, phone, email, password, role) 
-                  VALUES (:name, :surname, :dob, :nationality, :country, :city, :zip, :phone, :email, :password, 'user')";
+                  (name, surname, birthdate, nationality, country, city, zip_code, phone, email, password, role) 
+                  VALUES (:name, :surname, :birthdate, :nationality, :country, :city, :zip_code, :phone, :email, :password, 'user')";
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':surname', $surname);
-        $stmt->bindParam(':dob', $dob);
-        $stmt->bindParam(':nationality', $nationality);
-        $stmt->bindParam(':country', $country);
-        $stmt->bindParam(':city', $city);
-        $stmt->bindParam(':zip', $zip);
-        $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':email', $email);
-
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bindParam(':password', $hashed_password);
 
-        return $stmt->execute();
+        return $stmt->execute([
+            ':name' => $name,
+            ':surname' => $surname,
+            ':birthdate' => $birthdate,
+            ':nationality' => $nationality,
+            ':country' => $country,
+            ':city' => $city,
+            ':zip_code' => $zip_code,
+            ':phone' => $phone,
+            ':email' => $email,
+            ':password' => $hashed_password
+        ]);
     }
 
     public function login($email, $password) {
+        
+        $email = trim($email); 
+        
         $query = "SELECT * FROM " . $this->table_name . " WHERE email = :email LIMIT 1";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':email', $email);
