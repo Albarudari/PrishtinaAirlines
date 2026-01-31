@@ -110,17 +110,11 @@
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .signup-container {
-    width: 95%;
-    padding: 24px 20px;
-  }
-
-  .row {
+.row {
     flex-direction: column;
     gap: 12px;
   }
-}
+
 .error {
     color: red;
     font-size: 12px;
@@ -128,3 +122,9 @@
     display: block;
 }
 
+@media (max-width: 768px) {
+  .signup-container {
+    width: 95%;
+    padding: 24px 20px;
+  }
+}

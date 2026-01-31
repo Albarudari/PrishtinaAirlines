@@ -1,5 +1,7 @@
 <?php
 session_start();
+session_unset();
 session_destroy();
-header("Location: PublicSignin.php");
-exit;
+header("Location: signin.html");
+exit();
+?>

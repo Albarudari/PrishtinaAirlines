@@ -1,6 +1,7 @@
 <?php
+session_start();
 require_once 'Database.php';
-require_once 'user.php';
+require_once 'User.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $database = new Database();
@@ -10,15 +11,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    if ($user->login($email, $password)) {
-        if ($_SESSION['user_role'] == 'admin') {
-            header("Location: dashboard.php");
+    $userData = $user->login($email, $password);
+
+    if ($userData) {
+        $_SESSION['user_id'] = $userData['id'];
+        $_SESSION['user_name'] = $userData['name'];
+        $_SESSION['user_role'] = $userData['role'];
+
+        $role = strtolower(trim($userData['role']));
+
+        if ($role === 'admin') {
+            header("Location: admin_dashboard.php");
         } else {
             header("Location: homepage.php");
         }
-        exit;
+        exit();
     } else {
-        echo "Invalid email or password!";
+        header("refresh:2; url=signin.php"); 
+        echo "<h2 style='text-align:center; font-family:sans-serif; margin-top:50px; color:red;'>
+                Email or Password incorrect!
+              </h2>";
     }
 }
 ?>
