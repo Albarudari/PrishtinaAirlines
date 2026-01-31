@@ -124,3 +124,10 @@ input:focus {
     font-size: 13px;
     margin: 5px 0 15px;
 }
+
+@media (max-width: 420px) {
+    .signin-container {
+        width: 90%;
+        padding: 25px;
+    }
+}
