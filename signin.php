@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $role = strtolower(trim($userData['role']));
 
         if ($role === 'admin') {
-            header("Location: admin_dashboard.php");
+            header("Location: homepage.php");
         } else {
             header("Location: homepage.php");
         }

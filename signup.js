@@ -1,66 +1,73 @@
-document.getElementById("signupForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", function() {
 
-    document.querySelectorAll(".error").forEach(el => el.textContent = "");
-    const formMsg = document.getElementById("formMessage");
-    if (formMsg) formMsg.textContent = "";
-
-    let valid = true;
-
-    const emailInput = document.getElementById("email");
-    const email = emailInput ? emailInput.value.trim() : "";
-    const emailRegex = /^[^\s@]+@[^\s@]+\.(com|net|org|edu|gov|io)$/i;
-    
-    if (!emailRegex.test(email)) {
-        const errSpan = document.getElementById("emailError");
-        if (errSpan) errSpan.textContent = "Email must end with .com, .net, .org, .edu, .gov or .io";
-        valid = false;
-    }
-
-    const passInput = document.getElementById("password");
-    const password = passInput ? passInput.value : "";
-    const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[.!@#$%^&*]).{8,}$/;
-    
-    if (!passwordRegex.test(password)) {
-        const errSpan = document.getElementById("passwordError");
-        if (errSpan) errSpan.textContent = "Min 8 chars, 1 Uppercase, 1 Number and 1 Symbol";
-        valid = false;
-    }
-
-    const confirmPassInput = document.getElementById("confirmPassword");
-    const confirmPassword = confirmPassInput ? confirmPassInput.value : "";
-    if (password !== confirmPassword) {
-        const errSpan = document.getElementById("confirmPasswordError");
-        if (errSpan) errSpan.textContent = "Passwords do not match!";
-        valid = false;
-    }
-
-    const fields = [
-        { id: "firstName", err: "firstNameError" },
-        { id: "lastName", err: "lastNameError" },
-        { id: "dob", err: "dobError" },
-        { id: "city", err: "cityError" },
-        { id: "zip", err: "zipError" },
-        { id: "phone", err: "phoneError" }
-    ];
-
-    fields.forEach(f => {
-        const input = document.getElementById(f.id);
-        if (input && input.value.trim() === "") {
-            const errSpan = document.getElementById(f.err);
-            if (errSpan) errSpan.textContent = "This field is required";
-            valid = false;
+    const setupToggle = (inputId, iconId) => {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input && icon) {
+            icon.addEventListener('click', function() {
+                const isPass = input.type === 'password';
+                input.type = isPass ? 'text' : 'password';
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
         }
-    });
+    };
+    setupToggle('password', 'togglePassword');
+    setupToggle('confirmPassword', 'toggleConfirmPassword');
 
-    if (valid) {
-        if (formMsg) {
-            formMsg.style.color = "green";
-            formMsg.textContent = "Success! Redirecting...";
-        }
+    const showError = (inputElement, message) => {
+        const wrapper = inputElement.closest('.field') || inputElement.parentElement;
         
-        setTimeout(() => {
-            this.submit(); 
-        }, 1200);
+        let oldErr = wrapper.querySelector(".error-msg");
+        if (oldErr) oldErr.remove();
+
+        const errorSpan = document.createElement("span");
+        errorSpan.className = "error-msg";
+        errorSpan.textContent = message;
+        
+        errorSpan.style.color = "red";
+        errorSpan.style.fontSize = "12px";
+        errorSpan.style.display = "block";
+        errorSpan.style.width = "100%";
+        errorSpan.style.marginTop = "5px";
+        errorSpan.style.clear = "both";
+
+        wrapper.appendChild(errorSpan);
+    };
+
+    const form = document.getElementById("signupForm");
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            document.querySelectorAll(".error-msg").forEach(el => el.remove());
+            let valid = true;
+
+            const passInput = document.getElementById("password");
+            const passRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[.!@#$%^&*]).{8,}$/;
+            if (!passRegex.test(passInput.value)) {
+                showError(passInput, "Min 8 chars, 1 Uppercase, 1 Number and 1 Symbol");
+                valid = false;
+            }
+
+            const confirmInput = document.getElementById("confirmPassword");
+            if (passInput.value !== confirmInput.value) {
+                showError(confirmInput, "Passwords do not match!");
+                valid = false;
+            }
+
+            const ids = ["firstName", "lastName", "email", "birthdate", "city", "zip_code", "phone"];
+            ids.forEach(id => {
+                const el = document.getElementById(id);
+                if (el && el.value.trim() === "") {
+                    showError(el, "This field is required");
+                    valid = false;
+                }
+            });
+
+            if (valid) {
+                form.submit();
+            }
+        });
     }
 });
