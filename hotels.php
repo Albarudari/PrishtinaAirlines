@@ -55,7 +55,7 @@ $h = function($k, $d) use ($content) { return $content->get('hotels', $k, $d); }
         <li><a href="flights.php">Flights</a></li>
         <li><a href="hotels.php">Hotels</a></li>
         <li><a href="contactform.php">Contact</a></li>
-        <li><a class="signin-btn" href="signin.html">Sign In</a></li>
+        <li><a class="signin-btn" href="signin.php">Sign In</a></li>
     </ul>
 </nav>
 
