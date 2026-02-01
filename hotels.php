@@ -2,7 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Ky variabel kontrollon nese personi eshte admin
+
 $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
 ?>
 <!DOCTYPE html>

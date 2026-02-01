@@ -42,7 +42,7 @@ $users = $userMapper->getAllUsers();
              <a href="admin_dashboard.php" class="active"><i class="fa-solid fa-users"></i> Registered Users</a>
              <a href="admin_messages.php"><i class="fa-solid fa-envelope"></i> Messages</a>
              <a href="#"><i class="fa-solid fa-chart-line"></i> Statistics</a>
-             <a href="#"><i class="fa-solid fa-plane"></i> Flight Data</a>
+             <a href="admin_flights.php"><i class="fa-solid fa-plane"></i> Flight Data</a>
              <a href="homepage.php" class="back-site"><i class="fa-solid fa-arrow-left"></i> Back to Site</a>
         </nav>
     </aside>
@@ -104,6 +104,8 @@ $users = $userMapper->getAllUsers();
                                     <?php echo htmlspecialchars($user['role']); ?>
                                 </span>
                             </td>
+
+                            
                             <td>
                                 <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn-edit" title="Edit">
                                     <i class="fa-solid fa-pen-to-square"></i>
@@ -113,6 +115,9 @@ $users = $userMapper->getAllUsers();
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
+                                                    <label style="display: flex; align-items: center; gap: 5px;">
+                            <input type="checkbox" name="is_direct" checked value="1"> Direct Flight?
+                        </label>
                         </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

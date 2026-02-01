@@ -2,8 +2,12 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// Ky kontrollon nese je admin
 $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
+
+// Database Connection
+require_once __DIR__ . '/M/FlightMapper.php';
+$flightMapper = new FlightMapper();
+$allFlights = $flightMapper->getAllFlights();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +19,6 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   
   <style>
-    /* Stili i butonit qe te mos prish asgje ne layout-in tend */
     .admin-button {
         position: fixed !important;
         bottom: 20px !important;
@@ -33,9 +36,7 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
         align-items: center;
         gap: 8px;
     }
-    .admin-button:hover {
-        background-color: #085a98 !important;
-    }
+    .admin-button:hover { background-color: #085a98 !important; }
   </style>
 </head>
 
@@ -61,108 +62,49 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
 
 <div class="summary-bar-bg">
   <div class="summary-bar">
-    <div class="summary-search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
-    
+    <div class="summary-search"><i class="fa-solid fa-magnifying-glass"></i></div>
     <div class="summary-route-wide" onclick="editRoute()">
-      <span id="route-text">Pristina (PRN) – Munich (MUC)</span> 
-      · 
-      <span id="passenger-text">1 adult, 0 children</span>
+      <span id="route-text">Pristina (PRN) – Munich (MUC)</span> · <span id="passenger-text">1 adult, 0 children</span>
     </div>
-    
     <div class="summary-dates">
-      <button class="date-btn" onclick="changeDate(-1, 'depart')">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
+      <button class="date-btn" onclick="changeDate(-1, 'depart')"><i class="fa-solid fa-chevron-left"></i></button>
       <span id="depart-date">Sat, 20 Dec</span>
-      <button class="date-btn" onclick="changeDate(1, 'depart')">
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
-      
+      <button class="date-btn" onclick="changeDate(1, 'depart')"><i class="fa-solid fa-chevron-right"></i></button>
       <span class="dot">•</span>
-      
-      <button class="date-btn" onclick="changeDate(-1, 'return')">
-        <i class="fa-solid fa-chevron-left"></i>
-      </button>
+      <button class="date-btn" onclick="changeDate(-1, 'return')"><i class="fa-solid fa-chevron-left"></i></button>
       <span id="return-date">Wed, 28 Jan</span>
-      <button class="date-btn" onclick="changeDate(1, 'return')">
-        <i class="fa-solid fa-chevron-right"></i>
-      </button>
+      <button class="date-btn" onclick="changeDate(1, 'return')"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
   </div>
 </div>
 
 <div class="flights-container">
-
 <aside class="sidebar-filters">
   <div class="filter-section">
     <h4>Stops</h4>
-    <div class="stop-option">
-      <label>
-        <input type="checkbox" checked> 
-        Direct
-      </label>
-      <span class="stop-price">from €77</span>
-    </div>
-    <div class="stop-option">
-      <label>
-        <input type="checkbox"> 
-        1 stop
-      </label>
-      <span class="stop-price">from €104</span>
-    </div>
-    <div class="stop-option">
-      <label>
-        <input type="checkbox"> 
-        2+ stops
-      </label>
-      <span class="stop-price">from €174</span>
-    </div>
+    <div class="stop-option"><label><input type="checkbox" checked> Direct</label><span class="stop-price">from €77</span></div>
+    <div class="stop-option"><label><input type="checkbox"> 1 stop</label><span class="stop-price">from €104</span></div>
+    <div class="stop-option"><label><input type="checkbox"> 2+ stops</label><span class="stop-price">from €174</span></div>
   </div>
 
   <div class="filter-section">
-    <div class="baggage-header">
-      <h4>Baggage</h4>
-      <button class="select-all">Select all</button>
-    </div>
-    <div class="baggage-option">
-      <label>
-        <input type="checkbox"> 
-        Cabin bag
-      </label>
-    </div>
-    <div class="baggage-option">
-      <label>
-        <input type="checkbox"> 
-        Checked bag
-      </label>
-    </div>
+    <div class="baggage-header"><h4>Baggage</h4><button class="select-all">Select all</button></div>
+    <div class="baggage-option"><label><input type="checkbox"> Cabin bag</label></div>
+    <div class="baggage-option"><label><input type="checkbox"> Checked bag</label></div>
   </div>
 
   <div class="filter-section">
     <h4>Departure times</h4>
     <div class="departure-times">
-      <div class="time-range">
-        <h5>Outbound</h5>
-        <span>00:00 - 12:00</span>
-        <input type="range" min="0" max="23" value="6">
-      </div>
-      <div class="time-range">
-        <h5>Return</h5>
-        <span>00:00 - 23:59</span>
-        <input type="range" min="0" max="23" value="12">
-      </div>
+      <div class="time-range"><h5>Outbound</h5><span>00:00 - 12:00</span><input type="range" min="0" max="23" value="6"></div>
+      <div class="time-range"><h5>Return</h5><span>00:00 - 23:59</span><input type="range" min="0" max="23" value="12"></div>
     </div>
   </div>
 
   <div class="filter-section">
     <h4>Journey duration</h4>
     <div class="duration-range">
-      <div class="duration-labels">
-        <span>2.0 hours</span>
-        <span>32.0 hours</span>
-      </div>
+      <div class="duration-labels"><span>2.0 hours</span><span>32.0 hours</span></div>
       <input type="range" min="2" max="32" value="8" step="0.1">
       <div class="duration-value">8.0 hours</div>
     </div>
@@ -178,218 +120,36 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
 <main class="flights-main">
   <h2>Available Flights</h2>
 
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Eurowings</div>
-      <div class="time">15:50</div>
-    </div>
-    
-    <div class="flight-center">
-      <div class="route">PRN → MUC</div>
-      <div class="duration-container">
-        <span class="duration">1h 50m</span>
-        <span class="direct">Direct</span>
+  <?php if (empty($allFlights)): ?>
+      <div class="flight-card" style="justify-content: center; padding: 40px; border: 2px dashed #ccc;">
+          <p style="color: #666; font-style: italic;">No flights available for this route currently.</p>
       </div>
-    </div>
-    
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€81</span>
-        <span class="price-label">per person</span>
+  <?php else: ?>
+      <?php foreach($allFlights as $flight): ?>
+      <div class="flight-card">
+        <div class="flight-left">
+          <div class="airline" style="font-weight: 700; color: #085a98;"><?php echo htmlspecialchars($flight['airline']); ?></div>
+          <div class="time" style="font-size: 1.2rem; font-weight: 600;"><?php echo htmlspecialchars($flight['flight_time']); ?></div>
+        </div>
+        
+        <div class="flight-center">
+          <div class="route" style="letter-spacing: 1px;"><?php echo htmlspecialchars($flight['route']); ?></div>
+          <div class="duration-container">
+            <span class="duration"><?php echo htmlspecialchars($flight['duration']); ?></span>
+            <span class="direct">Direct</span>
+          </div>
+        </div>
+        
+        <div class="flight-right">
+          <div class="price-container">
+            <span class="price" style="color: #2ab3d5;">€<?php echo htmlspecialchars($flight['price']); ?></span>
+            <span class="price-label">per person</span>
+          </div>
+          <a href="flightdetails.html" class="select-btn" style="transition: all 0.3s ease;">Select →</a>
+        </div>
       </div>
-      <a href="flightdetails.html" class="select-btn">Select →</a>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Lufthansa</div>
-      <div class="time">12:40</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → MUC</div>
-      <div class="duration-container">
-        <span class="duration">1h 45m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€95</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Wizz Air</div>
-      <div class="time">11:30</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → MUC</div>
-      <div class="duration-container">
-        <span class="duration">1h 45m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€79</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">British Airways</div>
-      <div class="time">12:40</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → LON</div>
-      <div class="duration-container">
-        <span class="duration">1h 45m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€95</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">easyJet</div>
-      <div class="time">06:00</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → LON</div>
-      <div class="duration-container">
-        <span class="duration">1h 50m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€77</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Turkish Airlines</div>
-      <div class="time">14:20</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → IST</div>
-      <div class="duration-container">
-        <span class="duration">2h 10m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€89</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Austrian Airlines</div>
-      <div class="time">09:15</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → VIE</div>
-      <div class="duration-container">
-        <span class="duration">1h 55m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€92</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Air France</div>
-      <div class="time">13:45</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → CDG</div>
-      <div class="duration-container">
-        <span class="duration">2h 30m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€108</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">Swiss International</div>
-      <div class="time">10:30</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → ZRH</div>
-      <div class="duration-container">
-        <span class="duration">2h 15m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€115</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
-  <div class="flight-card">
-    <div class="flight-left">
-      <div class="airline">KLM Royal Dutch</div>
-      <div class="time">16:20</div>
-    </div>
-    <div class="flight-center">
-      <div class="route">PRN → AMS</div>
-      <div class="duration-container">
-        <span class="duration">2h 40m</span>
-        <span class="direct">Direct</span>
-      </div>
-    </div>
-    <div class="flight-right">
-      <div class="price-container">
-        <span class="price">€99</span>
-        <span class="price-label">per person</span>
-      </div>
-      <button>Select →</button>
-    </div>
-  </div>
-
+      <?php endforeach; ?>
+  <?php endif; ?>
 </main>
 </div>
 
@@ -434,6 +194,5 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
 </footer>
 
 <script src="flights.js"></script>
-
 </body>
 </html>
