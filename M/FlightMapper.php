@@ -7,9 +7,10 @@ class FlightMapper extends Database {
         try {
             $conn = $this->getConnection();
             
-            $sql = "SELECT f.*, u.name as admin_name 
+            $sql = "SELECT f.*, u.name as admin_name, u2.name as updated_by_name 
                     FROM flights f 
-                    LEFT JOIN users u ON f.created_by = u.id";
+                    LEFT JOIN users u ON f.created_by = u.id
+                    LEFT JOIN users u2 ON f.updated_by = u2.id";
             
             $params = [];
             if ($filterStops !== null) {
@@ -31,36 +32,67 @@ class FlightMapper extends Database {
         }
     }
 
+    public function getFlightById($id) {
+        try {
+            $conn = $this->getConnection();
+            $sql = "SELECT * FROM flights WHERE id = :id";
+            $statement = $conn->prepare($sql);
+            $statement->bindParam(':id', $id);
+            $statement->execute();
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return null;
+        }
+    }
+
     public function addFlight($airline, $route, $time, $duration, $price, $stops = 0, $admin_id = null) {
         try {
             $conn = $this->getConnection();
             
-            $stmt = $conn->query("SHOW COLUMNS FROM flights LIKE 'stops'");
-            $hasStops = $stmt && $stmt->rowCount() > 0;
-
-            if ($hasStops) {
-                $sql = "INSERT INTO flights (airline, route, flight_time, duration, price, stops, created_by) 
-                        VALUES (:airline, :route, :time, :duration, :price, :stops, :admin_id)";
-                $statement = $conn->prepare($sql);
-                $statement->bindParam(':stops', $stops);
-            } else {
-                $isDirect = ($stops === 0) ? 1 : 0;
-                $sql = "INSERT INTO flights (airline, route, flight_time, duration, price, is_direct, created_by) 
-                        VALUES (:airline, :route, :time, :duration, :price, :is_direct, :admin_id)";
-                $statement = $conn->prepare($sql);
-                $statement->bindParam(':is_direct', $isDirect);
-            }
-
+            $sql = "INSERT INTO flights (airline, route, flight_time, duration, price, stops, created_by) 
+                    VALUES (:airline, :route, :time, :duration, :price, :stops, :admin_id)";
+            
+            $statement = $conn->prepare($sql);
             $statement->bindParam(':airline', $airline);
             $statement->bindParam(':route', $route);
             $statement->bindParam(':time', $time);
             $statement->bindParam(':duration', $duration);
             $statement->bindParam(':price', $price);
+            $statement->bindParam(':stops', $stops);
             $statement->bindParam(':admin_id', $admin_id);
 
             return $statement->execute();
         } catch (PDOException $e) {
             die("Insert Error: " . $e->getMessage());
+        }
+    }
+
+    public function updateFlight($id, $airline, $route, $time, $duration, $price, $stops, $admin_id) {
+        try {
+            $conn = $this->getConnection();
+            $sql = "UPDATE flights SET 
+                    airline = :airline, 
+                    route = :route, 
+                    flight_time = :time, 
+                    duration = :duration, 
+                    price = :price, 
+                    stops = :stops,
+                    updated_by = :admin_id 
+                    WHERE id = :id";
+            
+            $statement = $conn->prepare($sql);
+            $statement->bindParam(':id', $id);
+            $statement->bindParam(':airline', $airline);
+            $statement->bindParam(':route', $route);
+            $statement->bindParam(':time', $time);
+            $statement->bindParam(':duration', $duration);
+            $statement->bindParam(':price', $price);
+            $statement->bindParam(':stops', $stops);
+            $statement->bindParam(':admin_id', $admin_id);
+            
+            return $statement->execute();
+        } catch (PDOException $e) {
+            die("Update Error: " . $e->getMessage());
         }
     }
 
