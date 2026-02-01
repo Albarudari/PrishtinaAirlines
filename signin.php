@@ -14,14 +14,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
+    // Marrim të dhënat e përdoruesit nga Database përmes Mapper-it
     $userData = $userMapper->getUserByEmail($email);
 
+    // Verifikojmë nëse përdoruesi ekziston dhe nëse password-i i shkruar përputhet me hash-in në DB
     if ($userData && password_verify($password, $userData['password'])) {
+        
+        // Ruajmë të dhënat kyçe në Session
         $_SESSION['user_id'] = $userData['id'];
-        $_SESSION['user_name'] = $userData['name'];
+        $_SESSION['user_name'] = $userData['name']; // Përdorim kolonën 'name'
         $_SESSION['user_role'] = $userData['role'] ?? 'user';
 
-        header("Location: admin_dashboard.php");
+        // RIDREJTIMI SIPAS ROLIT
+        if (strtolower(trim($_SESSION['user_role'])) === 'admin') {
+            header("Location: admin_dashboard.php");
+        } else {
+            header("Location: homepage.php");
+        }
         exit();
     } else {
         $error_message = "Email or Password incorrect!";
@@ -70,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <label for="password">Password</label>
             <div class="password-wrapper">
                 <input type="password" id="password" name="password" placeholder="Password" required>
-                <i class="fa-solid fa-eye-slash" id="togglePassword"></i>
+                <i class="fa-solid fa-eye-slash" id="togglePassword" style="cursor: pointer;"></i>
             </div>
             <div class="error" id="passwordError"></div>
         </div>
