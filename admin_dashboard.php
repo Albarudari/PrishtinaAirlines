@@ -115,9 +115,6 @@ $users = $userMapper->getAllUsers();
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
                             </td>
-                                                    <label style="display: flex; align-items: center; gap: 5px;">
-                            <input type="checkbox" name="is_direct" checked value="1"> Direct Flight?
-                        </label>
                         </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

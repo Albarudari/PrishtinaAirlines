@@ -70,6 +70,23 @@ document.querySelector('.summary-search').addEventListener('click', function(e) 
 updateDates();
 
 document.addEventListener('DOMContentLoaded', function() {
+    const stopFilters = document.querySelectorAll('input[name="stop_filter"]');
+    const flightCards = document.querySelectorAll('.flight-card[data-stops]');
+    function filterByStops() {
+        const checked = Array.from(stopFilters).filter(cb => cb.checked).map(cb => cb.value);
+        flightCards.forEach(card => {
+            if (checked.length === 0) {
+                card.style.display = '';
+                return;
+            }
+            const stops = card.getAttribute('data-stops');
+            const match = (stops === '0' && checked.includes('0')) ||
+                (stops === '1' && checked.includes('1')) ||
+                (parseInt(stops, 10) >= 2 && checked.includes('2'));
+            card.style.display = match ? '' : 'none';
+        });
+    }
+    stopFilters.forEach(cb => cb.addEventListener('change', filterByStops));
 
     const selectAllBtn = document.querySelector('.select-all');
     const baggageCheckboxes = document.querySelectorAll('.baggage-option input[type="checkbox"]');

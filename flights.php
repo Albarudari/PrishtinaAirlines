@@ -8,6 +8,13 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
 require_once __DIR__ . '/M/FlightMapper.php';
 $flightMapper = new FlightMapper();
 $allFlights = $flightMapper->getAllFlights();
+function getStopLabel($f) {
+    $s = isset($f['stops']) ? (int)$f['stops'] : (isset($f['is_direct']) && $f['is_direct'] ? 0 : 1);
+    return $s === 0 ? 'Direct' : ($s === 1 ? '1 stop' : '2+ stops');
+}
+function getStopValue($f) {
+    return isset($f['stops']) ? (int)$f['stops'] : (isset($f['is_direct']) && $f['is_direct'] ? 0 : 1);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +22,8 @@ $allFlights = $flightMapper->getAllFlights();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prishtina Airlines – Flights</title>
-  <link rel="stylesheet" href="flights.css">
+  <link rel="stylesheet" href="flights.css?v=3">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
   <style>
     .admin-button {
         position: fixed !important;
@@ -39,15 +45,12 @@ $allFlights = $flightMapper->getAllFlights();
     .admin-button:hover { background-color: #085a98 !important; }
   </style>
 </head>
-
 <body>
-
 <?php if ($showAdminButton): ?>
     <a href="admin_dashboard.php" class="admin-button">
         <i class="fa-solid fa-user-shield"></i> Admin Panel
     </a>
 <?php endif; ?>
-
 <nav class="navbar">
   <div class="logo">✈ Prishtina Airlines</div>
   <ul class="nav-links">
@@ -59,7 +62,6 @@ $allFlights = $flightMapper->getAllFlights();
     <li><a class="signin-btn" href="signin.html">Sign In</a></li>
   </ul>
 </nav>
-
 <div class="summary-bar-bg">
   <div class="summary-bar">
     <div class="summary-search"><i class="fa-solid fa-magnifying-glass"></i></div>
@@ -77,22 +79,24 @@ $allFlights = $flightMapper->getAllFlights();
     </div>
   </div>
 </div>
-
 <div class="flights-container">
 <aside class="sidebar-filters">
   <div class="filter-section">
     <h4>Stops</h4>
-    <div class="stop-option"><label><input type="checkbox" checked> Direct</label><span class="stop-price">from €77</span></div>
-    <div class="stop-option"><label><input type="checkbox"> 1 stop</label><span class="stop-price">from €104</span></div>
-    <div class="stop-option"><label><input type="checkbox"> 2+ stops</label><span class="stop-price">from €174</span></div>
+    <?php
+    $directFlights = array_filter($allFlights, function($f) { return getStopValue($f) === 0; });
+    $oneStopFlights = array_filter($allFlights, function($f) { return getStopValue($f) === 1; });
+    $twoPlusFlights = array_filter($allFlights, function($f) { return getStopValue($f) >= 2; });
+    ?>
+    <div class="stop-option"><label><input type="checkbox" name="stop_filter" value="0" checked> Direct</label><span class="stop-price"><?php echo count($directFlights) ? 'from €' . min(array_map(function($f) { return (float)($f['price'] ?? 999); }, $directFlights)) : '-'; ?></span></div>
+    <div class="stop-option"><label><input type="checkbox" name="stop_filter" value="1"> 1 stop</label><span class="stop-price"><?php echo count($oneStopFlights) ? 'from €' . min(array_map(function($f) { return (float)($f['price'] ?? 999); }, $oneStopFlights)) : '-'; ?></span></div>
+    <div class="stop-option"><label><input type="checkbox" name="stop_filter" value="2"> 2+ stops</label><span class="stop-price"><?php echo count($twoPlusFlights) ? 'from €' . min(array_map(function($f) { return (float)($f['price'] ?? 999); }, $twoPlusFlights)) : '-'; ?></span></div>
   </div>
-
   <div class="filter-section">
     <div class="baggage-header"><h4>Baggage</h4><button class="select-all">Select all</button></div>
     <div class="baggage-option"><label><input type="checkbox"> Cabin bag</label></div>
     <div class="baggage-option"><label><input type="checkbox"> Checked bag</label></div>
   </div>
-
   <div class="filter-section">
     <h4>Departure times</h4>
     <div class="departure-times">
@@ -100,7 +104,6 @@ $allFlights = $flightMapper->getAllFlights();
       <div class="time-range"><h5>Return</h5><span>00:00 - 23:59</span><input type="range" min="0" max="23" value="12"></div>
     </div>
   </div>
-
   <div class="filter-section">
     <h4>Journey duration</h4>
     <div class="duration-range">
@@ -109,54 +112,50 @@ $allFlights = $flightMapper->getAllFlights();
       <div class="duration-value">8.0 hours</div>
     </div>
   </div>
-
   <div class="filter-section hotel-box">
     <h3>Found flights?</h3>
     <p>Now find a hotel for your stay.</p>
     <a href="hotels.php" class="hotel-btn">Explore hotels</a>
   </div>
 </aside>
-
 <main class="flights-main">
   <h2>Available Flights</h2>
-
   <?php if (empty($allFlights)): ?>
-      <div class="flight-card" style="justify-content: center; padding: 40px; border: 2px dashed #ccc;">
-          <p style="color: #666; font-style: italic;">No flights available for this route currently.</p>
-      </div>
+    <div class="flight-card flight-card--empty">
+      <p>No flights available for this route currently.</p>
+    </div>
   <?php else: ?>
-      <?php foreach($allFlights as $flight): ?>
-      <div class="flight-card">
-        <div class="flight-left">
-          <div class="airline" style="font-weight: 700; color: #085a98;"><?php echo htmlspecialchars($flight['airline']); ?></div>
-          <div class="time" style="font-size: 1.2rem; font-weight: 600;"><?php echo htmlspecialchars($flight['flight_time']); ?></div>
-        </div>
-        
-        <div class="flight-center">
-          <div class="route" style="letter-spacing: 1px;"><?php echo htmlspecialchars($flight['route']); ?></div>
-          <div class="duration-container">
-            <span class="duration"><?php echo htmlspecialchars($flight['duration']); ?></span>
-            <span class="direct">Direct</span>
-          </div>
-        </div>
-        
-        <div class="flight-right">
-          <div class="price-container">
-            <span class="price" style="color: #2ab3d5;">€<?php echo htmlspecialchars($flight['price']); ?></span>
-            <span class="price-label">per person</span>
-          </div>
-          <a href="flightdetails.html" class="select-btn" style="transition: all 0.3s ease;">Select →</a>
+    <?php foreach ($allFlights as $flight):
+      $stopVal = getStopValue($flight);
+      $stopLabel = getStopLabel($flight);
+    ?>
+    <div class="flight-card" data-stops="<?php echo $stopVal; ?>">
+      <div class="flight-left">
+        <div class="airline"><?php echo htmlspecialchars($flight['airline']); ?></div>
+        <div class="time"><?php echo htmlspecialchars($flight['flight_time']); ?></div>
+      </div>
+      <div class="flight-center">
+        <div class="route"><?php echo htmlspecialchars($flight['route']); ?></div>
+        <div class="duration-container">
+          <span class="duration"><?php echo htmlspecialchars($flight['duration']); ?></span>
+          <span class="direct"><?php echo htmlspecialchars($stopLabel); ?></span>
         </div>
       </div>
-      <?php endforeach; ?>
+      <div class="flight-right">
+        <div class="price-container">
+          <span class="price">€<?php echo htmlspecialchars($flight['price']); ?></span>
+          <span class="price-label">per person</span>
+        </div>
+        <a href="flightdetails.html" class="select-btn">Select →</a>
+      </div>
+    </div>
+    <?php endforeach; ?>
   <?php endif; ?>
 </main>
 </div>
-
 <section id="about" class="about-airline">
     <div class="about-container">
         <h2>About Prishtina Airlines</h2>
-        <br>
         <p class="about-desc">
             Prishtina Airlines is a modern airline focused on providing safe,
             affordable and comfortable flights across Europe and beyond.
@@ -188,11 +187,9 @@ $allFlights = $flightMapper->getAllFlights();
         </div>
     </div>
 </section>
-
 <footer class="airline-footer">
     © 2026 Prishtina Airlines. All rights reserved.
 </footer>
-
 <script src="flights.js"></script>
 </body>
 </html>

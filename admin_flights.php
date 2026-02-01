@@ -8,9 +8,9 @@ if (isset($_POST['add_flight'])) {
     $time = $_POST['time'];
     $duration = $_POST['duration'];
     $price = $_POST['price'];
-    $isDirect = isset($_POST['is_direct']) ? 1 : 0;
+    $stops = isset($_POST['stops']) ? (int)$_POST['stops'] : 0;
 
-    $flightMapper->addFlight($airline, $route, $time, $duration, $price, $isDirect);
+    $flightMapper->addFlight($airline, $route, $time, $duration, $price, $stops);
     header("Location: admin_flights.php");
 }
 
@@ -82,10 +82,13 @@ $flights = $flightMapper->getAllFlights();
                 <input type="time" name="time" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
                 <input type="text" name="duration" placeholder="Duration (e.g. 2h 30m)" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
                 <input type="number" step="0.01" name="price" placeholder="Price in EUR" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-                
                 <div style="display: flex; align-items: center; gap: 10px; background: #f9f9f9; padding: 10px; border-radius: 4px;">
-                    <input type="checkbox" name="is_direct" id="is_direct" checked style="width: 18px; height: 18px;">
-                    <label for="is_direct" style="font-weight: 600; color: #444;">Direct Flight</label>
+                    <label for="stops" style="font-weight: 600; color: #444;">Stops:</label>
+                    <select name="stops" id="stops" style="padding: 10px 14px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;">
+                        <option value="0">Direct</option>
+                        <option value="1">1 stop</option>
+                        <option value="2">2+ stops</option>
+                    </select>
                 </div>
 
                 <button type="submit" name="add_flight" class="badge admin" style="grid-column: span 3; border: none; cursor: pointer; height: 45px; background: #003366; color: #fff; font-size: 16px; transition: 0.3s;">
@@ -114,8 +117,14 @@ $flights = $flightMapper->getAllFlights();
                         <td><strong><?php echo htmlspecialchars($f['airline']); ?></strong></td>
                         <td><?php echo htmlspecialchars($f['route']); ?></td>
                         <td>
-                            <span style="padding: 4px 10px; border-radius: 12px; font-size: 11px; background: <?php echo ($f['is_direct'] ? '#e1f5fe' : '#fff3e0'); ?>; color: <?php echo ($f['is_direct'] ? '#01579b' : '#ef6c00'); ?>;">
-                                <?php echo ($f['is_direct'] ? 'Direct' : '1 Stop'); ?>
+                            <?php
+                            $s = isset($f['stops']) ? (int)$f['stops'] : (isset($f['is_direct']) && $f['is_direct'] ? 0 : 1);
+                            $label = $s === 0 ? 'Direct' : ($s === 1 ? '1 stop' : '2+ stops');
+                            $bg = $s === 0 ? '#e1f5fe' : ($s === 1 ? '#fff3e0' : '#ffebee');
+                            $clr = $s === 0 ? '#01579b' : ($s === 1 ? '#ef6c00' : '#c62828');
+                            ?>
+                            <span style="padding: 4px 10px; border-radius: 12px; font-size: 11px; background: <?php echo $bg; ?>; color: <?php echo $clr; ?>;">
+                                <?php echo htmlspecialchars($label); ?>
                             </span>
                         </td>
                         <td>€<?php echo htmlspecialchars($f['price']); ?></td>
