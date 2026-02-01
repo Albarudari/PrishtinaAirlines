@@ -1,8 +1,14 @@
 <?php
+session_start();
 require_once __DIR__ . '/M/FlightMapper.php';
-$flightMapper = new FlightMapper();
 
-$current_admin_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 10; 
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$flightMapper = new FlightMapper();
+$current_admin_id = $_SESSION['user_id']; 
 
 if (isset($_POST['add_flight'])) {
     if(!empty($_POST['airline']) && !empty($_POST['route']) && !empty($_POST['price'])) {
@@ -38,139 +44,108 @@ $flights = $flightMapper->getAllFlights();
     <style>
         .admin-table tbody tr:hover { background-color: #fcfcfc; }
         .btn-save:hover { opacity: 0.9; transform: translateY(-1px); }
-        .icon-bg { opacity: 0.2; position: absolute; right: 10px; bottom: 10px; font-size: 40px; }
-        .stat-card { position: relative; overflow: hidden; }
-        /* Stil i shtuar për emrin e adminit */
+        .stat-card { position: relative; overflow: hidden; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .icon-bg { opacity: 0.1; position: absolute; right: 10px; bottom: 10px; font-size: 40px; color: #003366; }
         .admin-name-tag { color: #003366; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 5px; }
+        .badge.admin { background: #003366; color: white; padding: 8px 15px; border-radius: 20px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="admin-container">
-    <aside class="sidebar">
-        <div class="logo">✈ Admin Panel</div>
-        <nav class="side-nav">
-             <a href="admin_dashboard.php"><i class="fa-solid fa-users"></i> Registered Users</a>
-             <a href="admin_messages.php"><i class="fa-solid fa-envelope"></i> Messages</a>
-             <a href="admin_flights.php" class="active"><i class="fa-solid fa-plane"></i> Flight Data</a>
-             <a href="admin_homepage.php"><i class="fa-solid fa-house"></i> Home Page</a>
-             <a href="admin_hotels.php"><i class="fa-solid fa-hotel"></i> Hotels</a>
-             <a href="homepage.php" class="back-site"><i class="fa-solid fa-arrow-left"></i> Back to Site</a>
+<div class="admin-container" style="display: flex; min-height: 100vh;">
+    <aside class="sidebar" style="width: 250px; background: #003366; color: white; padding: 20px;">
+        <div class="logo" style="font-size: 20px; font-weight: bold; margin-bottom: 30px;">✈ Admin Panel</div>
+        <nav class="side-nav" style="display: flex; flex-direction: column; gap: 15px;">
+             <a href="admin_dashboard.php" style="color: white; text-decoration: none;"><i class="fa-solid fa-users"></i> Registered Users</a>
+             <a href="admin_messages.php" style="color: white; text-decoration: none;"><i class="fa-solid fa-envelope"></i> Messages</a>
+             <a href="admin_flights.php" class="active" style="color: #ffcc00; text-decoration: none;"><i class="fa-solid fa-plane"></i> Flight Data</a>
+             <a href="admin_homepage.php" style="color: white; text-decoration: none;"><i class="fa-solid fa-house"></i> Home Page</a>
+             <a href="homepage.php" class="back-site" style="margin-top: 20px; color: #ccc; text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back to Site</a>
         </nav>
     </aside>
 
-    <main class="main-content">
-        <header class="admin-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-            <div class="header-left">
-                <h1 style="color: #003366; font-size: 24px;">Flight Management System</h1>
-                <p style="color: #666;">Control your airline schedule, pricing, and route details in real-time.</p>
+    <main class="main-content" style="flex-grow: 1; padding: 30px; background: #f4f7f6;">
+        <header class="admin-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <div>
+                <h1 style="color: #003366; margin: 0;">Flight Management</h1>
+                <p style="color: #666;">Logged in as: <strong><?php echo $_SESSION['user_name'] ?? 'Admin'; ?></strong></p>
             </div>
-            <div class="header-right">
-                <span class="badge admin" style="background: #003366; color: white; padding: 8px 15px; border-radius: 20px; font-size: 12px;">
-                    <i class="fa-solid fa-shield-halved"></i> Verified Admin
-                </span>
-            </div>
+            <span class="badge admin">
+                <i class="fa-solid fa-shield-halved"></i> Verified Admin
+            </span>
         </header>
         
         <section class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px;">
             <div class="stat-card">
                 <i class="fa-solid fa-plane-departure icon-bg"></i>
                 <h3>Total Flights</h3>
-                <p><?php echo count($flights); ?></p>
+                <p style="font-size: 24px; font-weight: bold;"><?php echo count($flights); ?></p>
             </div>
             <div class="stat-card">
                 <i class="fa-solid fa-route icon-bg"></i>
                 <h3>Active Routes</h3>
-                <p><?php echo count(array_unique(array_column($flights, 'route'))); ?></p>
+                <p style="font-size: 24px; font-weight: bold;"><?php echo count(array_unique(array_column($flights, 'route'))); ?></p>
             </div>
             <div class="stat-card">
                 <i class="fa-solid fa-euro-sign icon-bg"></i>
-                <h3>Average Fare</h3>
-                <p>€<?php echo (count($flights) > 0) ? round(array_sum(array_column($flights, 'price')) / count($flights)) : 0; ?></p>
+                <h3>Average Price</h3>
+                <p style="font-size: 24px; font-weight: bold;">€<?php echo (count($flights) > 0) ? round(array_sum(array_column($flights, 'price')) / count($flights)) : 0; ?></p>
             </div>
         </section>
 
-        <section class="table-section" style="margin-bottom: 40px; border-top: 3px solid #003366; background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-            <h2 style="padding: 20px 20px 0 20px;"><i class="fa-solid fa-plus-circle"></i> Add New Route</h2>
-            <form action="admin_flights.php" method="POST" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 25px;">
-                <input type="text" name="airline" placeholder="Airline Name (e.g. Lufthansa)" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-                <input type="text" name="route" placeholder="Route (e.g. PRN - LHR)" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-                <input type="time" name="time" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-                <input type="text" name="duration" placeholder="Duration (e.g. 2h 30m)" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-                <input type="number" step="0.01" name="price" placeholder="Price in EUR" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
-                
-                <div style="display: flex; align-items: center; gap: 10px; background: #f9f9f9; padding: 10px; border-radius: 4px; border: 1px solid #ddd;">
-                    <label for="stops" style="font-weight: 600; color: #444;">Stops:</label>
-                    <select name="stops" id="stops" style="padding: 5px; border: none; background: transparent; flex-grow: 1; cursor: pointer;">
-                        <option value="0">Direct</option>
-                        <option value="1">1 stop</option>
-                        <option value="2">2+ stops</option>
-                    </select>
-                </div>
-
-                <button type="submit" name="add_flight" class="btn-save" style="grid-column: span 3; border: none; cursor: pointer; height: 45px; background: #003366; color: #fff; font-size: 16px; transition: 0.3s; border-radius: 4px; font-weight: bold;">
-                    <i class="fa-solid fa-cloud-upload-alt"></i> Save Flight to Database
+        <section class="table-section" style="background: #fff; padding: 25px; border-radius: 8px; margin-bottom: 30px; border-top: 4px solid #003366;">
+            <h2><i class="fa-solid fa-plus-circle"></i> Add New Flight</h2>
+            <form action="admin_flights.php" method="POST" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
+                <input type="text" name="airline" placeholder="Airline Name" required style="padding: 10px; border: 1px solid #ddd;">
+                <input type="text" name="route" placeholder="Route (e.g. PRN-IST)" required style="padding: 10px; border: 1px solid #ddd;">
+                <input type="time" name="time" required style="padding: 10px; border: 1px solid #ddd;">
+                <input type="text" name="duration" placeholder="Duration" required style="padding: 10px; border: 1px solid #ddd;">
+                <input type="number" step="0.01" name="price" placeholder="Price €" required style="padding: 10px; border: 1px solid #ddd;">
+                <select name="stops" style="padding: 10px; border: 1px solid #ddd;">
+                    <option value="0">Direct</option>
+                    <option value="1">1 Stop</option>
+                    <option value="2">2+ Stops</option>
+                </select>
+                <button type="submit" name="add_flight" class="btn-save" style="grid-column: span 3; background: #003366; color: white; border: none; padding: 12px; cursor: pointer; font-weight: bold;">
+                    SAVE FLIGHT
                 </button>
             </form>
         </section>
 
-        <section class="table-section" style="background: #fff; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-            <div class="table-header" style="padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-                <h2 style="margin: 0;">Live Flight Records</h2>
-                <small style="color: #888;">Showing <?php echo count($flights); ?> results</small>
-            </div>
-            <table class="admin-table" style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="text-align: left; background: #fcfcfc;">
-                        <th style="padding: 15px;">Airline</th>
-                        <th style="padding: 15px;">Route</th>
-                        <th style="padding: 15px;">Type</th>
-                        <th style="padding: 15px;">Price</th>
-                        <th style="padding: 15px;">Added By</th> <th style="padding: 15px; text-align: center;">Action</th>
+        <section style="background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #f8f9fa;">
+                    <tr>
+                        <th style="padding: 15px; text-align: left;">Airline</th>
+                        <th style="padding: 15px; text-align: left;">Route</th>
+                        <th style="padding: 15px; text-align: left;">Price</th>
+                        <th style="padding: 15px; text-align: left;">Added By</th> <th style="padding: 15px; text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if(empty($flights)): ?>
-                        <tr>
-                            <td colspan="6" style="text-align: center; padding: 30px; color: #999;">No flights found in database.</td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach($flights as $f): ?>
-                        <tr style="border-bottom: 1px solid #eee;">
-                            <td style="padding: 15px;"><strong><?php echo htmlspecialchars($f['airline']); ?></strong></td>
-                            <td style="padding: 15px;"><?php echo htmlspecialchars($f['route']); ?></td>
-                            <td style="padding: 15px;">
-                                <?php
-                                $s = isset($f['stops']) ? (int)$f['stops'] : 0;
-                                $label = $s === 0 ? 'Direct' : ($s === 1 ? '1 stop' : '2+ stops');
-                                $bg = $s === 0 ? '#e1f5fe' : ($s === 1 ? '#fff3e0' : '#ffebee');
-                                $clr = $s === 0 ? '#01579b' : ($s === 1 ? '#ef6c00' : '#c62828');
-                                ?>
-                                <span style="padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: bold; background: <?php echo $bg; ?>; color: <?php echo $clr; ?>;">
-                                    <?php echo $label; ?>
-                                </span>
-                            </td>
-                            <td style="padding: 15px; font-weight: bold; color: #28a745;">€<?php echo htmlspecialchars($f['price']); ?></td>
-                            
-                            <td style="padding: 15px;">
-                                <div class="admin-name-tag">
-                                    <i class="fa-solid fa-user-pen"></i>
-                                    <?php echo htmlspecialchars($f['admin_name'] ?? 'System'); ?>
-                                </div>
-                            </td>
-
-                            <td style="padding: 15px; text-align: center;">
-                                <a href="admin_flights.php?delete=<?php echo $f['id']; ?>" class="btn-delete" style="color: #ff5252; font-size: 18px;" onclick="return confirm('Are you sure you want to delete this flight?')">
-                                    <i class="fa-solid fa-trash-can"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
+                    <?php foreach($flights as $f): ?>
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 15px;"><strong><?php echo htmlspecialchars($f['airline']); ?></strong></td>
+                        <td style="padding: 15px;"><?php echo htmlspecialchars($f['route']); ?></td>
+                        <td style="padding: 15px; color: #28a745; font-weight: bold;">€<?php echo $f['price']; ?></td>
+                        <td style="padding: 15px;">
+                            <span class="admin-name-tag">
+                                <i class="fa-solid fa-user-check"></i> 
+                                <?php echo htmlspecialchars($f['admin_name'] ?? 'System'); ?>
+                            </span>
+                        </td>
+                        <td style="padding: 15px; text-align: center;">
+                            <a href="admin_flights.php?delete=<?php echo $f['id']; ?>" style="color: #dc3545;" onclick="return confirm('Delete this flight?')">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </section>
     </main>
 </div>
+
 </body>
 </html>

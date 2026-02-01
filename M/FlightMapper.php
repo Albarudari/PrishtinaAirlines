@@ -21,18 +21,11 @@ class FlightMapper extends Database {
                 }
             }
             
-            $sql .= " ORDER BY f.price ASC";
+            $sql .= " ORDER BY f.id DESC";
             $statement = $conn->prepare($sql);
             $statement->execute($params);
             
-            $rows = $statement->fetchAll(PDO::FETCH_ASSOC);
-            
-            foreach ($rows as &$row) {
-                if (!isset($row['stops']) && isset($row['is_direct'])) {
-                    $row['stops'] = $row['is_direct'] == 1 ? 0 : 1;
-                }
-            }
-            return $rows;
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             die("Database Error: " . $e->getMessage());
         }
