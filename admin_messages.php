@@ -58,9 +58,12 @@ $messages = $mapper->getAllInquiries();
                     <?php else: ?>
                         <?php foreach($messages as $msg): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($msg['name'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($msg['emri'] ?? 'N/A'); ?></td>
+                            
                             <td><?php echo htmlspecialchars($msg['email'] ?? 'N/A'); ?></td>
-                            <td><?php echo htmlspecialchars($msg['message'] ?? 'N/A'); ?></td>
+                            
+                            <td><?php echo htmlspecialchars($msg['mesazhi'] ?? 'N/A'); ?></td>
+                            
                             <td><?php echo htmlspecialchars($msg['created_at'] ?? 'N/A'); ?></td>
                         </tr>
                         <?php endforeach; ?>

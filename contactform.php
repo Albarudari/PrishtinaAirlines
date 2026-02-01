@@ -4,50 +4,32 @@ error_reporting(E_ALL);
 
 require_once 'M/ContactMapper.php';
 
-<<<<<<< HEAD
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_contact'])) {
-=======
+$error_message = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
->>>>>>> 758b49115b90183c7e2e6eea7be18b5cd25a97db
     
-    $name = $_POST['name'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $message = $_POST['message'] ?? '';
+    $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+    $email = isset($_POST['email']) ? trim($_POST['email']) : '';
+    $message = isset($_POST['message']) ? trim($_POST['message']) : '';
 
     if (!empty($name) && !empty($email) && !empty($message)) {
-<<<<<<< HEAD
         try {
             $mapper = new ContactMapper();
             
             if ($mapper->insertInquiry($name, $email, $message)) {
                 echo "<script>
-                    alert('Thank you for your message!');
+                    alert('Thank you for your message, $name!');
                     window.location.href = 'homepage.php';
                 </script>";
                 exit();
             } else {
-                echo "GABIM: The database rejected the save. Check your table columns.";
+                $error_message = "Database error: Nuk u arrit të ruhej mesazhi.";
             }
         } catch (Exception $e) {
-            echo "FATAL ERROR: " . $e->getMessage();
+            $error_message = "Fatal error: " . $e->getMessage();
         }
     } else {
-        echo "GABIM: All fields are required.";
-=======
-        $mapper = new ContactMapper();
-        
-        if ($mapper->insertInquiry($name, $email, $message)) {
-            echo "<script>
-                alert('Thank you for your message!');
-                window.location.href = 'homepage.php';
-            </script>";
-            exit();
-        } else {
-            echo "GABIM: Metoda insertInquiry ktheu false. Kontrollo DB.";
-        }
-    } else {
-        echo "GABIM: Fushat janë zbrazët.";
->>>>>>> 758b49115b90183c7e2e6eea7be18b5cd25a97db
+        $error_message = "Ju lutem plotësoni të gjitha fushat (Emrin, Email-in dhe Mesazhin).";
     }
 }
 ?>
@@ -56,15 +38,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Prishtina Airlines</title>
     <link rel="stylesheet" href="contactform.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .error-box {
+            background: #ffdbdb;
+            color: #a30000;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 
 <section class="contact-section">
     <div class="contact-container">
         <h2>Contact Us</h2>
+
+        <?php if (!empty($error_message)): ?>
+            <div class="error-box"><?php echo $error_message; ?></div>
+        <?php endif; ?>
 
         <form action="" method="POST" class="contact-form">
             
