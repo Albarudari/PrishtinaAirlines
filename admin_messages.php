@@ -48,17 +48,19 @@ $messages = $mapper->getAllInquiries();
                         <th>Name</th>
                         <th>Email</th>
                         <th>Message</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (empty($messages)): ?>
-                        <tr><td colspan="3">Nuk ka mesazhe për të shfaqur.</td></tr>
+                        <tr><td colspan="4" style="text-align:center;">Nuk ka mesazhe për të shfaqur.</td></tr>
                     <?php else: ?>
                         <?php foreach($messages as $msg): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($msg['emri'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($msg['name'] ?? 'N/A'); ?></td>
                             <td><?php echo htmlspecialchars($msg['email'] ?? 'N/A'); ?></td>
-                            <td><?php echo htmlspecialchars($msg['mesazhi'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($msg['message'] ?? 'N/A'); ?></td>
+                            <td><?php echo htmlspecialchars($msg['created_at'] ?? 'N/A'); ?></td>
                         </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

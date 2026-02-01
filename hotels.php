@@ -51,7 +51,7 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
         <li><a href="#about">About Us</a></li>
         <li><a href="flights.php">Flights</a></li>
         <li><a href="hotels.php">Hotels</a></li>
-        <li><a href="#about">Contact</a></li>
+        <li><a href="contactform.php">Contact</a></li>
         <li><a class="signin-btn" href="signin.html">Sign In</a></li>
     </ul>
 </nav>

@@ -496,6 +496,26 @@ body {
 }
 
 .flight-card {
+  .select-btn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background 0.18s;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.10);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flight-card .select-btn:hover {
+  background: #1251a2;
+}
   background: #fafdff;
   border-radius: 22px;
   padding: 18px 32px;
