@@ -1,6 +1,21 @@
 <?php
-require_once 'M/ContactMapper.php';
-require_once 'M/UserMapper.php';
+if (file_exists(__DIR__ . '/Database.php')) {
+    require_once __DIR__ . '/Database.php';
+}
+
+$contactPath = __DIR__ . '/M/ContactMapper.php';
+if (file_exists($contactPath)) {
+    require_once $contactPath;
+} else {
+    die("GABIM: Skedari nuk u gjet në: " . $contactPath);
+}
+
+$userPath = __DIR__ . '/M/UserMapper.php';
+if (file_exists($userPath)) {
+    require_once $userPath;
+} else {
+    die("GABIM: Skedari nuk u gjet në: " . $userPath);
+}
 
 $contactMapper = new ContactMapper();
 $messages = $contactMapper->getAllInquiries();
@@ -34,27 +49,37 @@ $users = $userMapper->getAllUsers();
 
     <main class="main-content">
         <header class="admin-header">
-            <h1>Dashboard Overview</h1>
-            <p>Welcome back, Admin</p>
+            <div class="header-left">
+                <h1>Dashboard Overview</h1>
+                <p>Welcome back, Admin</p>
+            </div>
+            <div class="header-right">
+                <a href="logout.php" style="color: #d02d1b; text-decoration: none;"><i class="fa-solid fa-sign-out-alt"></i> Logout</a>
+            </div>
         </header>
         
         <section class="stats-grid">
             <div class="stat-card">
+                <i class="fa-solid fa-user-group icon-bg"></i>
                 <h3>Total Users</h3>
-                <p><?php echo count($users); ?></p>
+                <p><?php echo is_array($users) ? count($users) : 0; ?></p>
             </div>
             <div class="stat-card">
+                <i class="fa-solid fa-comment-dots icon-bg"></i>
                 <h3>New Messages</h3>
-                <p><?php echo count($messages); ?></p>
+                <p><?php echo is_array($messages) ? count($messages) : 0; ?></p>
             </div>
             <div class="stat-card">
+                <i class="fa-solid fa-plane-departure icon-bg"></i>
                 <h3>Active Flights</h3>
                 <p>12</p>
             </div>
         </section>
 
         <section class="table-section">
-            <h2>Registered Users</h2>
+            <div class="table-header">
+                <h2>Registered Users</h2>
+            </div>
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -65,26 +90,37 @@ $users = $userMapper->getAllUsers();
                         <th>Action</th>
                     </tr>
                 </thead>
-               <tbody>
-    <?php if (empty($users)): ?>
-        <tr><td colspan="5">No users found.</td></tr>
-    <?php else: ?>
-        <?php foreach($users as $user): ?>
-        <tr>
-            <td>#<?php echo htmlspecialchars($user['id']); ?></td>
-            <td><?php echo htmlspecialchars($user['name']); ?></td>
-            <td><?php echo htmlspecialchars($user['email']); ?></td>
-            <td><span class="badge admin"><?php echo htmlspecialchars($user['role']); ?></span></td>
-            <td>
-                <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn-edit" style="color: #497682; margin-right: 15px; text-decoration: none;">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </a>
-                
-                <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn-delete" style="color: #d02d1b; text-decoration: none;" onclick="return confirm('Are you sure?')">
-                    <i class="fa-solid fa-trash"></i>
-                </a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</tbody>
+                <tbody>
+                    <?php if (empty($users)): ?>
+                        <tr><td colspan="5">No users found.</td></tr>
+                    <?php else: ?>
+                        <?php foreach($users as $user): ?>
+                        <tr>
+                            <td>#<?php echo htmlspecialchars($user['id']); ?></td>
+                            <td><?php echo htmlspecialchars($user['name']); ?></td>
+                            <td><?php echo htmlspecialchars($user['email']); ?></td>
+                            <td>
+                                <span class="badge <?php echo ($user['role'] == 'admin') ? 'admin' : 'user'; ?>">
+                                    <?php echo htmlspecialchars($user['role']); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <a href="edit_user.php?id=<?php echo $user['id']; ?>" class="btn-edit" title="Edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                
+                                <a href="delete_user.php?id=<?php echo $user['id']; ?>" class="btn-delete" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+
+</body>
+</html>
