@@ -41,8 +41,9 @@ $users = $userMapper->getAllUsers();
         <nav class="side-nav">
              <a href="admin_dashboard.php" class="active"><i class="fa-solid fa-users"></i> Registered Users</a>
              <a href="admin_messages.php"><i class="fa-solid fa-envelope"></i> Messages</a>
-             <a href="#"><i class="fa-solid fa-chart-line"></i> Statistics</a>
              <a href="admin_flights.php"><i class="fa-solid fa-plane"></i> Flight Data</a>
+             <a href="admin_homepage.php"><i class="fa-solid fa-house"></i> Home Page</a>
+             <a href="admin_hotels.php"><i class="fa-solid fa-hotel"></i> Hotels</a>
              <a href="homepage.php" class="back-site"><i class="fa-solid fa-arrow-left"></i> Back to Site</a>
         </nav>
     </aside>

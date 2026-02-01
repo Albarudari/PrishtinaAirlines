@@ -2,15 +2,18 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
 $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin');
+
+require_once __DIR__ . '/M/SiteContentMapper.php';
+$content = new SiteContentMapper();
+$h = function($k, $d) use ($content) { return $content->get('hotels', $k, $d); };
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>London Hotels</title>
+    <title><?php echo htmlspecialchars($h('page_title', 'London Hotels')); ?></title>
     <link rel="stylesheet" href="homepage.css">
     <link rel="stylesheet" href="hotels.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -51,7 +54,7 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
         <li><a href="#about">About Us</a></li>
         <li><a href="flights.php">Flights</a></li>
         <li><a href="hotels.php">Hotels</a></li>
-        <li><a href="#about">Contact</a></li>
+        <li><a href="contactform.php">Contact</a></li>
         <li><a class="signin-btn" href="signin.html">Sign In</a></li>
     </ul>
 </nav>
@@ -98,7 +101,7 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
     <main class="container" id="hotels" role="main">
 
         <section class="property-types">
-            <h2 class="title">Browse by property type</h2>
+            <h2 class="title"><?php echo htmlspecialchars($h('section_property', 'Browse by property type')); ?></h2>
             <div class="property-grid">
                 <div class="property-card">
                     <img src="images/hotels.jpg" alt="Hotels">
@@ -119,135 +122,117 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
             </div>
         </section>
 
-        <h2 class="title">Top 5 Trending Hotels in Central London</h2>
+        <h2 class="title"><?php echo htmlspecialchars($h('section_trending', 'Top 5 Trending Hotels in Central London')); ?></h2>
 
         <section class="carousel" aria-label="Trending hotels carousel">
             <div class="carousel-track">
                 
                 <article class="hotel-card">
                     <div class="image-box">
-                        <img alt="Rest Up London – Hostel" src="images/hotel1.jpg">
+                        <img alt="<?php echo htmlspecialchars($h('hotel1_name', 'Rest Up London – Hostel')); ?>" src="<?php echo htmlspecialchars($h('hotel1_img', 'images/hotel1.jpg')); ?>">
                     </div>
-
                     <div class="info-box">
-                        <h3>Rest Up London – Hostel</h3>
-
+                        <h3><?php echo htmlspecialchars($h('hotel1_name', 'Rest Up London – Hostel')); ?></h3>
                         <div class="rating">
-                            <span class="stars">★★★☆☆</span>
-                            <span class="reviews">Very Good · 8.4</span>
+                            <span class="stars"><?php echo htmlspecialchars($h('hotel1_stars', '★★★☆☆')); ?></span>
+                            <span class="reviews"><?php echo htmlspecialchars($h('hotel1_reviews', 'Very Good · 8.4')); ?></span>
                         </div>
-
-                        <p class="location"><i class="fa-solid fa-location-dot"></i> 2.9 km from City Centre</p>
-
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($h('hotel1_location', '2.9 km from City Centre')); ?></p>
                         <div class="tags">
-                            <span>Free WiFi</span>
-                            <span>Prime Discount</span>
+                            <?php foreach (array_map('trim', explode(',', $h('hotel1_tags', 'Free WiFi, Prime Discount'))) as $tag): ?><?php if ($tag): ?><span><?php echo htmlspecialchars($tag); ?></span><?php endif; ?><?php endforeach; ?>
                         </div>
                     </div>
-
                     <div class="price-box">
-                        <span class="old-price">€436.17</span>
-                        <span class="new-price">€342.04</span>
+                        <span class="old-price">€<?php echo htmlspecialchars($h('hotel1_old_price', '436.17')); ?></span>
+                        <span class="new-price">€<?php echo htmlspecialchars($h('hotel1_new_price', '342.04')); ?></span>
                         <button>Select</button>
                     </div>
                 </article>
 
                 <article class="hotel-card">
                     <div class="image-box">
-                        <img alt="Central London Urban Hotel" src="images/hotel2.jpg">
+                        <img alt="<?php echo htmlspecialchars($h('hotel2_name', 'Central London Urban Hotel')); ?>" src="<?php echo htmlspecialchars($h('hotel2_img', 'images/hotel2.jpg')); ?>">
                     </div>
-
                     <div class="info-box">
-                        <h3>Central London Urban Hotel</h3>
+                        <h3><?php echo htmlspecialchars($h('hotel2_name', 'Central London Urban Hotel')); ?></h3>
                         <div class="rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="reviews">Excellent · 9.1</span>
+                            <span class="stars"><?php echo htmlspecialchars($h('hotel2_stars', '★★★★☆')); ?></span>
+                            <span class="reviews"><?php echo htmlspecialchars($h('hotel2_reviews', 'Excellent · 9.1')); ?></span>
                         </div>
-                        <p class="location"><i class="fa-solid fa-location-dot"></i> 1.2 km from City Centre</p>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($h('hotel2_location', '1.2 km from City Centre')); ?></p>
                         <div class="tags">
-                            <span>Free Breakfast</span>
-                            <span>City View</span>
+                            <?php foreach (array_map('trim', explode(',', $h('hotel2_tags', 'Free Breakfast, City View'))) as $tag): ?><?php if ($tag): ?><span><?php echo htmlspecialchars($tag); ?></span><?php endif; ?><?php endforeach; ?>
                         </div>
                     </div>
-
                     <div class="price-box">
-                        <span class="old-price">€289.00</span>
-                        <span class="new-price">€219.00</span>
+                        <span class="old-price">€<?php echo htmlspecialchars($h('hotel2_old_price', '289.00')); ?></span>
+                        <span class="new-price">€<?php echo htmlspecialchars($h('hotel2_new_price', '219.00')); ?></span>
                         <button>Select</button>
                     </div>
                 </article>
 
                 <article class="hotel-card">
                     <div class="image-box">
-                        <img alt="Oxford Street Luxury Rooms" src="images/hotel3.jpg">
+                        <img alt="<?php echo htmlspecialchars($h('hotel3_name', 'Oxford Street Luxury Rooms')); ?>" src="<?php echo htmlspecialchars($h('hotel3_img', 'images/hotel3.jpg')); ?>">
                     </div>
-
                     <div class="info-box">
-                        <h3>Oxford Street Luxury Rooms</h3>
+                        <h3><?php echo htmlspecialchars($h('hotel3_name', 'Oxford Street Luxury Rooms')); ?></h3>
                         <div class="rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="reviews">Fantastic · 9.0</span>
+                            <span class="stars"><?php echo htmlspecialchars($h('hotel3_stars', '★★★★☆')); ?></span>
+                            <span class="reviews"><?php echo htmlspecialchars($h('hotel3_reviews', 'Fantastic · 9.0')); ?></span>
                         </div>
-                        <p class="location"><i class="fa-solid fa-location-dot"></i> 300m from Oxford Street</p>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($h('hotel3_location', '300m from Oxford Street')); ?></p>
                         <div class="tags">
-                            <span>Shopping Area</span>
-                            <span>Free WiFi</span>
+                            <?php foreach (array_map('trim', explode(',', $h('hotel3_tags', 'Shopping Area, Free WiFi'))) as $tag): ?><?php if ($tag): ?><span><?php echo htmlspecialchars($tag); ?></span><?php endif; ?><?php endforeach; ?>
                         </div>
                     </div>
-
                     <div class="price-box">
-                        <span class="old-price">€350.00</span>
-                        <span class="new-price">€279.00</span>
+                        <span class="old-price">€<?php echo htmlspecialchars($h('hotel3_old_price', '350.00')); ?></span>
+                        <span class="new-price">€<?php echo htmlspecialchars($h('hotel3_new_price', '279.00')); ?></span>
                         <button>Select</button>
                     </div>
                 </article>
 
                 <article class="hotel-card">
                     <div class="image-box">
-                        <img alt="Kensington Palace Hotel" src="images/hotel4.jpg">
+                        <img alt="<?php echo htmlspecialchars($h('hotel4_name', 'Kensington Palace Hotel')); ?>" src="<?php echo htmlspecialchars($h('hotel4_img', 'images/hotel4.jpg')); ?>">
                     </div>
-
                     <div class="info-box">
-                        <h3>Kensington Palace Hotel</h3>
+                        <h3><?php echo htmlspecialchars($h('hotel4_name', 'Kensington Palace Hotel')); ?></h3>
                         <div class="rating">
-                            <span class="stars">★★★★★</span>
-                            <span class="reviews">Exceptional · 9.5</span>
+                            <span class="stars"><?php echo htmlspecialchars($h('hotel4_stars', '★★★★★')); ?></span>
+                            <span class="reviews"><?php echo htmlspecialchars($h('hotel4_reviews', 'Exceptional · 9.5')); ?></span>
                         </div>
-                        <p class="location"><i class="fa-solid fa-location-dot"></i> 5 min from Hyde Park</p>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($h('hotel4_location', '5 min from Hyde Park')); ?></p>
                         <div class="tags">
-                            <span>Premium</span>
-                            <span>Spa & Wellness</span>
+                            <?php foreach (array_map('trim', explode(',', $h('hotel4_tags', 'Premium, Spa & Wellness'))) as $tag): ?><?php if ($tag): ?><span><?php echo htmlspecialchars($tag); ?></span><?php endif; ?><?php endforeach; ?>
                         </div>
                     </div>
-
                     <div class="price-box">
-                        <span class="old-price">€410.00</span>
-                        <span class="new-price">€329.00</span>
+                        <span class="old-price">€<?php echo htmlspecialchars($h('hotel4_old_price', '410.00')); ?></span>
+                        <span class="new-price">€<?php echo htmlspecialchars($h('hotel4_new_price', '329.00')); ?></span>
                         <button>Select</button>
                     </div>
                 </article>
 
                 <article class="hotel-card">
                     <div class="image-box">
-                        <img alt="Soho Boutique Hotel" src="images/hotel5.jpg">
+                        <img alt="<?php echo htmlspecialchars($h('hotel5_name', 'Soho Boutique Hotel')); ?>" src="<?php echo htmlspecialchars($h('hotel5_img', 'images/hotel5.jpg')); ?>">
                     </div>
-
                     <div class="info-box">
-                        <h3>Soho Boutique Hotel</h3>
+                        <h3><?php echo htmlspecialchars($h('hotel5_name', 'Soho Boutique Hotel')); ?></h3>
                         <div class="rating">
-                            <span class="stars">★★★★☆</span>
-                            <span class="reviews">Excellent · 8.9</span>
+                            <span class="stars"><?php echo htmlspecialchars($h('hotel5_stars', '★★★★☆')); ?></span>
+                            <span class="reviews"><?php echo htmlspecialchars($h('hotel5_reviews', 'Excellent · 8.9')); ?></span>
                         </div>
-                        <p class="location"><i class="fa-solid fa-location-dot"></i> Located in the heart of Soho</p>
+                        <p class="location"><i class="fa-solid fa-location-dot"></i> <?php echo htmlspecialchars($h('hotel5_location', 'Located in the heart of Soho')); ?></p>
                         <div class="tags">
-                            <span>Nightlife</span>
-                            <span>Modern Design</span>
+                            <?php foreach (array_map('trim', explode(',', $h('hotel5_tags', 'Nightlife, Modern Design'))) as $tag): ?><?php if ($tag): ?><span><?php echo htmlspecialchars($tag); ?></span><?php endif; ?><?php endforeach; ?>
                         </div>
                     </div>
-
                     <div class="price-box">
-                        <span class="old-price">€299.00</span>
-                        <span class="new-price">€239.00</span>
+                        <span class="old-price">€<?php echo htmlspecialchars($h('hotel5_old_price', '299.00')); ?></span>
+                        <span class="new-price">€<?php echo htmlspecialchars($h('hotel5_new_price', '239.00')); ?></span>
                         <button>Select</button>
                     </div>
                 </article>
@@ -323,18 +308,18 @@ $showAdminButton = (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 
         <section class="features">
             <div class="feature">
                 <div class="feature-icon">%</div>
-                <h4>Great hotel deals</h4>
-                <p>We search our partners to find the best deal for you.</p>
+                <h4><?php echo htmlspecialchars($h('feat1_title', 'Great hotel deals')); ?></h4>
+                <p><?php echo htmlspecialchars($h('feat1_text', 'We search our partners to find the best deal for you.')); ?></p>
             </div>
             <div class="feature">
                 <div class="feature-icon">🪄</div>
-                <h4>Up-to-date pricing</h4>
-                <p>Real-time pricing so you know what you'll pay.</p>
+                <h4><?php echo htmlspecialchars($h('feat2_title', 'Up-to-date pricing')); ?></h4>
+                <p><?php echo htmlspecialchars($h('feat2_text', 'Real-time pricing so you know what you\'ll pay.')); ?></p>
             </div>
             <div class="feature">
                 <div class="feature-icon">⚖️</div>
-                <h4>Precise searching</h4>
-                <p>Filters for reviews, location and cancellation policy.</p>
+                <h4><?php echo htmlspecialchars($h('feat3_title', 'Precise searching')); ?></h4>
+                <p><?php echo htmlspecialchars($h('feat3_text', 'Filters for reviews, location and cancellation policy.')); ?></p>
             </div>
         </section>
 

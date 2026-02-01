@@ -1,14 +1,12 @@
 <?php
-// 1. Startojmë sesionin (Duhet të jetë rreshti i parë)
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+$showAdminButton = isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin';
 
-// 2. Kontrollojmë nëse përdoruesi është Admin
-$showAdminButton = false;
-if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
-    $showAdminButton = true;
-}
+require_once __DIR__ . '/M/SiteContentMapper.php';
+$content = new SiteContentMapper();
+$h = function($k, $d) use ($content) { return $content->get('homepage', $k, $d); };
 ?>
 
 <!DOCTYPE html>
@@ -52,16 +50,16 @@ if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
         <li><a href="#about">About Us</a></li>
         <li><a href="flights.php">Flights</a></li>
         <li><a href="hotels.php">Hotels</a></li>
-        <li><a href="#about">Contact</a></li>
+        <li><a href="contactform.php">Contact</a></li>
         <li><a class="signin-btn" href="signin.html">Sign In</a></li>
     </ul>
 </nav>
 
 <section class="hero">
     <div class="hero-content">
-      <h1>Fly the Future</h1>
-      <p>Your journey begins with us.</p>
-      <a href="#" class="hero-btn">Book a Flight</a>
+      <h1><?php echo htmlspecialchars($h('hero_title', 'Fly the Future')); ?></h1>
+      <p><?php echo htmlspecialchars($h('hero_subtitle', 'Your journey begins with us.')); ?></p>
+      <a href="#" class="hero-btn"><?php echo htmlspecialchars($h('hero_btn_text', 'Book a Flight')); ?></a>
     </div>
 </section>
 
@@ -80,12 +78,12 @@ if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
     <div class="form-row">
         <div class="input-group">
             <label>From</label>
-            <input type="text" placeholder="Prishtina">
+            <input type="text" placeholder="<?php echo htmlspecialchars($h('search_from', 'Prishtina')); ?>">
         </div>
 
         <div class="input-group">
             <label>To</label>
-            <input type="text" placeholder="London">
+            <input type="text" placeholder="<?php echo htmlspecialchars($h('search_to', 'London')); ?>">
         </div>
 
         <div class="input-group">
@@ -140,34 +138,34 @@ if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
   <h2>Top Offers</h2>
   <div class="offers-wrapper">
     <div class="offer-card">
-      <img src="christmas.jpg" alt="Winter Sale">
-      <span class="offer-badge">-30%</span>
-      <h3>Special Winter Sale</h3>
-      <p>Save up to 30% on selected winter routes. Travel until 31 Jan 2025.</p>
+      <img src="<?php echo htmlspecialchars($h('offer1_img', 'christmas.jpg')); ?>" alt="Winter Sale">
+      <?php if ($h('offer1_badge', '-30%')): ?><span class="offer-badge"><?php echo htmlspecialchars($h('offer1_badge', '-30%')); ?></span><?php endif; ?>
+      <h3><?php echo htmlspecialchars($h('offer1_title', 'Special Winter Sale')); ?></h3>
+      <p><?php echo htmlspecialchars($h('offer1_desc', 'Save up to 30% on selected winter routes. Travel until 31 Jan 2025.')); ?></p>
       <br>
       <button onclick="showMessage()">View Deals</button>
     </div>
 
     <div class="offer-card">
-      <img src="businessclass.jpg" alt="Business Class">
-      <h3>Business Class Upgrade</h3>
-      <p>Enjoy premium seats, lounge access and priority boarding.</p>
+      <img src="<?php echo htmlspecialchars($h('offer2_img', 'businessclass.jpg')); ?>" alt="Business Class">
+      <h3><?php echo htmlspecialchars($h('offer2_title', 'Business Class Upgrade')); ?></h3>
+      <p><?php echo htmlspecialchars($h('offer2_desc', 'Enjoy premium seats, lounge access and priority boarding.')); ?></p>
       <br>
       <button onclick="showMessage()">Upgrade Now</button>
     </div>
 
     <div class="offer-card">
-      <img src="bali.jpg" alt="New Routes">
-      <h3>New Routes 2025</h3>
-      <p>Discover new destinations launching in 2025: Bali, Dubai, Tokyo.</p>
+      <img src="<?php echo htmlspecialchars($h('offer3_img', 'bali.jpg')); ?>" alt="New Routes">
+      <h3><?php echo htmlspecialchars($h('offer3_title', 'New Routes 2025')); ?></h3>
+      <p><?php echo htmlspecialchars($h('offer3_desc', 'Discover new destinations launching in 2025: Bali, Dubai, Tokyo.')); ?></p>
       <br>
       <button onclick="showMessage()">Explore Routes</button>
     </div>
 
     <div class="offer-card">
-      <img src="privatejet.jpg" alt="Private Jet">
-      <h3>Book a Private Jet</h3>
-      <p>Fly on your own schedule with full privacy and comfort.</p>
+      <img src="<?php echo htmlspecialchars($h('offer4_img', 'privatejet.jpg')); ?>" alt="Private Jet">
+      <h3><?php echo htmlspecialchars($h('offer4_title', 'Book a Private Jet')); ?></h3>
+      <p><?php echo htmlspecialchars($h('offer4_desc', 'Fly on your own schedule with full privacy and comfort.')); ?></p>
       <button onclick="openJetForm()">Request Quote</button>
     </div>
   </div>
@@ -177,38 +175,38 @@ if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin') {
     <h1>Trending Destinations</h1>
     <div class="cards">
       <div class="card">
-        <img src="newyork.avif" alt="New York">
+        <img src="<?php echo htmlspecialchars($h('trend1_img', 'newyork.avif')); ?>" alt="New York">
         <div class="card-body">
-          <h3>Prishtina (PRN) → New York (JFK)</h3>
-          <p>Tue, December 10 – Tue, December 17</p>
-          <span>From €699</span>
+          <h3><?php echo htmlspecialchars($h('trend1_route', 'Prishtina (PRN) → New York (JFK)')); ?></h3>
+          <p><?php echo htmlspecialchars($h('trend1_dates', 'Tue, December 10 – Tue, December 17')); ?></p>
+          <span><?php echo htmlspecialchars($h('trend1_price', 'From €699')); ?></span>
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
       <div class="card">
-        <img src="london.avif" alt="London">
+        <img src="<?php echo htmlspecialchars($h('trend2_img', 'london.avif')); ?>" alt="London">
         <div class="card-body">
-          <h3>Prishtina (PRN) → London (LHR)</h3>
-          <p>Thu, December 12 – Thu, December 19</p>
-          <span>From €129</span>
+          <h3><?php echo htmlspecialchars($h('trend2_route', 'Prishtina (PRN) → London (LHR)')); ?></h3>
+          <p><?php echo htmlspecialchars($h('trend2_dates', 'Thu, December 12 – Thu, December 19')); ?></p>
+          <span><?php echo htmlspecialchars($h('trend2_price', 'From €129')); ?></span>
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
       <div class="card">
-        <img src="barcelona.webp" alt="Barcelona">
+        <img src="<?php echo htmlspecialchars($h('trend3_img', 'barcelona.webp')); ?>" alt="Barcelona">
         <div class="card-body">
-          <h3>Prishtina (PRN) → Barcelona (BCN)</h3>
-          <p>Fri, December 20 – Fri, December 27</p>
-          <span>From €159</span>
+          <h3><?php echo htmlspecialchars($h('trend3_route', 'Prishtina (PRN) → Barcelona (BCN)')); ?></h3>
+          <p><?php echo htmlspecialchars($h('trend3_dates', 'Fri, December 20 – Fri, December 27')); ?></p>
+          <span><?php echo htmlspecialchars($h('trend3_price', 'From €159')); ?></span>
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
       <div class="card">
-        <img src="paris.webp" alt="Paris">
+        <img src="<?php echo htmlspecialchars($h('trend4_img', 'paris.webp')); ?>" alt="Paris">
         <div class="card-body">
-          <h3>Prishtina (PRN) → Paris (CDG)</h3>
-          <p>Mon, December 16 – Mon, December 23</p>
-          <span>From €189</span>
+          <h3><?php echo htmlspecialchars($h('trend4_route', 'Prishtina (PRN) → Paris (CDG)')); ?></h3>
+          <p><?php echo htmlspecialchars($h('trend4_dates', 'Mon, December 16 – Mon, December 23')); ?></p>
+          <span><?php echo htmlspecialchars($h('trend4_price', 'From €189')); ?></span>
           <button onclick="book()">BOOK NOW</button>
         </div>
       </div>
