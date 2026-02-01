@@ -58,6 +58,10 @@ $flights = $flightMapper->getAllFlights();
         .btn-action { background: <?php echo $editMode ? '#f39c12' : '#00bcd4'; ?>; color: white; border: none; padding: 12px; cursor: pointer; font-weight: bold; border-radius: 4px; }
         .admin-info { font-size: 11px; color: #777; display: block; }
         .admin-name { color: #003366; font-weight: bold; }
+        
+        /* Stili per kartelat e statistikave */
+        .stat-card { position: relative; overflow: hidden; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .icon-bg { opacity: 0.1; position: absolute; right: 10px; bottom: 10px; font-size: 40px; color: #003366; }
     </style>
 </head>
 <body>
@@ -76,6 +80,25 @@ $flights = $flightMapper->getAllFlights();
 
     <main class="main-content">
         <h2><?php echo $editMode ? "Edit Flight" : "Flight Management"; ?></h2>
+        <br>
+
+        <section class="stats-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;">
+            <div class="stat-card">
+                <i class="fa-solid fa-plane-departure icon-bg"></i>
+                <h3 style="margin: 0; color: #666; font-size: 14px;">Total Flights</h3>
+                <p style="font-size: 24px; font-weight: bold; margin: 10px 0 0 0;"><?php echo count($flights); ?></p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-route icon-bg"></i>
+                <h3 style="margin: 0; color: #666; font-size: 14px;">Active Routes</h3>
+                <p style="font-size: 24px; font-weight: bold; margin: 10px 0 0 0;"><?php echo count(array_unique(array_column($flights, 'route'))); ?></p>
+            </div>
+            <div class="stat-card">
+                <i class="fa-solid fa-euro-sign icon-bg"></i>
+                <h3 style="margin: 0; color: #666; font-size: 14px;">Average Price</h3>
+                <p style="font-size: 24px; font-weight: bold; margin: 10px 0 0 0;">€<?php echo (count($flights) > 0) ? round(array_sum(array_column($flights, 'price')) / count($flights)) : 0; ?></p>
+            </div>
+        </section>
 
         <section style="background: #fff; padding: 25px; border-radius: 8px; margin-bottom: 30px; border-top: 4px solid <?php echo $editMode ? '#f39c12' : '#00bcd4'; ?>;">
             <form action="admin_flights.php" method="POST" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px;">
