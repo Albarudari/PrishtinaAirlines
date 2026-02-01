@@ -149,8 +149,210 @@ function getStopValue($f) {
         <a href="flightdetails.html" class="select-btn">Select →</a>
       </div>
     </div>
+<<<<<<< HEAD
     <?php endforeach; ?>
   <?php endif; ?>
+=======
+    
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€81</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Lufthansa</div>
+      <div class="time">12:40</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → MUC</div>
+      <div class="duration-container">
+        <span class="duration">1h 45m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€95</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Wizz Air</div>
+      <div class="time">11:30</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → MUC</div>
+      <div class="duration-container">
+        <span class="duration">1h 45m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€79</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">British Airways</div>
+      <div class="time">12:40</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → LON</div>
+      <div class="duration-container">
+        <span class="duration">1h 45m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€95</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">easyJet</div>
+      <div class="time">06:00</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → LON</div>
+      <div class="duration-container">
+        <span class="duration">1h 50m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€77</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Turkish Airlines</div>
+      <div class="time">14:20</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → IST</div>
+      <div class="duration-container">
+        <span class="duration">2h 10m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€89</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Austrian Airlines</div>
+      <div class="time">09:15</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → VIE</div>
+      <div class="duration-container">
+        <span class="duration">1h 55m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€92</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Air France</div>
+      <div class="time">13:45</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → CDG</div>
+      <div class="duration-container">
+        <span class="duration">2h 30m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€108</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">Swiss International</div>
+      <div class="time">10:30</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → ZRH</div>
+      <div class="duration-container">
+        <span class="duration">2h 15m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€115</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+  <div class="flight-card">
+    <div class="flight-left">
+      <div class="airline">KLM Royal Dutch</div>
+      <div class="time">16:20</div>
+    </div>
+    <div class="flight-center">
+      <div class="route">PRN → AMS</div>
+      <div class="duration-container">
+        <span class="duration">2h 40m</span>
+        <span class="direct">Direct</span>
+      </div>
+    </div>
+    <div class="flight-right">
+      <div class="price-container">
+        <span class="price">€99</span>
+        <span class="price-label">per person</span>
+      </div>
+      <button>Select →</button>
+    </div>
+  </div>
+
+>>>>>>> 758b49115b90183c7e2e6eea7be18b5cd25a97db
 </main>
 </div>
 <section id="about" class="about-airline">

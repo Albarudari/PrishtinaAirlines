@@ -14,6 +14,23 @@ class ContactMapper extends Database {
         $this->db = $database->getConnection(); 
     }
 
+    public function insertInquiry($name, $email, $message) {
+        try {
+            $db = $this->getConnection();
+            $sql = "INSERT INTO contact_messages (name, email, message) VALUES (:name, :email, :message)";
+            
+            $statement = $db->prepare($sql);
+            
+            $statement->bindParam(':name', $name);
+            $statement->bindParam(':email', $email);
+            $statement->bindParam(':message', $message);
+            
+            return $statement->execute();
+        } catch (PDOException $e) {
+            die("Gabim në DB: " . $e->getMessage());
+        }
+    }
+
     public function getAllInquiries() {
         // This will now work because $this->db is no longer null!
         $sql = "SELECT * FROM contact_inquiries ORDER BY created_at DESC";
