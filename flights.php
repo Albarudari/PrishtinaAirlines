@@ -146,7 +146,7 @@ function getStopValue($f) {
           <span class="price">€<?php echo htmlspecialchars($flight['price']); ?></span>
           <span class="price-label">per person</span>
         </div>
-        <a href="flightdetails.html" class="select-btn">Select →</a>
+        <button type="button" class="select-btn">Select →</button>
       </div>
     </div>
     <?php endforeach; ?>
